@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ResacApp · La APP para curar la Resaca</title>
+  <meta name="description" content="Descarga tu receta electrónica para comprar el pack anti resaca en la farmacia más cercana sin tener que ir a urgencias. Un médico revisa tu solicitud y recibes la receta en tu correo en menos de 20 minutos.">
+  <meta name="theme-color" content="#350E5B">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ResacApp · La APP para curar la Resaca">
+  <meta property="og:description" content="Un médico revisa tu solicitud y recibes tu receta electrónica en menos de 20 minutos. Sin urgencias, sin esperas.">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://resacapp.com/">
+  <link rel="canonical" href="https://resacapp.com/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300..900&display=swap">
+  <link rel="stylesheet" href="styles.css?v=6">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<!--
+THESIS: La landing ES la app. Cada promesa se demuestra con la interfaz real de ResacApp funcionando en el navegador, sin registro; se rechaza la landing de telemedicina con stock de médicos y tarjetas de iconos.
+OWN-WORLD: Morado noche #350E5B y #21002A, grano azul #27B0FF a rosa #FF25A2, botón «Solicitar receta» con anillo azul, cristal blanco al 8 %, botón rosa degradado, verde de aprobación, Caros/Outfit + Inter.
+STORY: De la noche (resaca) al día (Resaca fuera): el visitante toca, ve la receta llegar, entiende el proceso, confía en la revisión médica y entra en la app.
+FIRST VIEWPORT: Titular grande a la izquierda con CTA rosa; a la derecha el móvil con la Home real y el botón «Solicitar receta» tocable que dispara revisión, correo, QR y pauta alrededor del móvil.
+FORM: Producto como demostración, estructura del HTML de referencia, branding del Figma «PVI – ResacApp». Seed: brief fijado por el cliente (sin tirada).
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
+
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6B3193"/><stop offset="1" stop-color="#E91C91"/></linearGradient>
+    <linearGradient id="g-silver" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCD5E6"/></linearGradient>
+    <linearGradient id="g-btn" x1="0" y1="0" x2="0" y2="1"><stop offset=".49" stop-color="#E8E8F2"/><stop offset="1" stop-color="#C8C8C8"/></linearGradient>
+    <linearGradient id="g-rxtext" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="g-capsule" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="g-appicon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A2FA0"/><stop offset="1" stop-color="#350E5B"/></linearGradient>
+    <filter id="f-btn" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="ha"/>
+      <feOffset dy="-8"/><feGaussianBlur stdDeviation="3"/><feComposite in2="ha" operator="arithmetic" k2="-1" k3="1"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/><feBlend mode="normal" in2="SourceGraphic" result="e1"/>
+      <feOffset in="ha" dy="-12"/><feGaussianBlur stdDeviation="26"/><feComposite in2="ha" operator="arithmetic" k2="-1" k3="1"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.638 0 0 0 0 0.61 0 0 0 0 0.644 0 0 0 0.52 0"/><feBlend mode="normal" in2="e1" result="e2"/>
+      <feOffset in="ha" dy="52"/><feGaussianBlur stdDeviation="32"/><feComposite in2="ha" operator="arithmetic" k2="-1" k3="1"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.88 0"/><feBlend mode="normal" in2="e2" result="e3"/>
+      <feOffset in="ha" dy="8"/><feGaussianBlur stdDeviation="6"/><feComposite in2="ha" operator="arithmetic" k2="-1" k3="1"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.88 0"/><feBlend mode="normal" in2="e3"/>
+    </filter>
+    <filter id="f-ring" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="ha"/>
+      <feGaussianBlur stdDeviation="3.5"/><feComposite in2="ha" operator="arithmetic" k2="-1" k3="1"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.003 0 0 0 0 0.186 0 0 0 0 0.582 0 0 0 1 0"/><feBlend mode="normal" in2="SourceGraphic"/>
+    </filter>
+    <filter id="f-emboss" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="-1.25" dy="1.25" stdDeviation=".5" flood-color="#fff" flood-opacity="1"/>
+    </filter>
+    <filter id="f-capsule" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="-1.25" dy="1.25" stdDeviation=".5" flood-color="#fff" flood-opacity="1"/>
+    </filter>
+  </defs>
+
+  <!--LOGO:BEGIN--><symbol id="logo-word" viewBox="5 5 269 72"><path style="fill:var(--lg-mark,url(#g-mark))" fill-rule="nonzero" d="M11.1513 8.47058C12.1887 8.84524 15.5138 12.3383 16.6309 13.3756C17.8092 12.5977 19.7138 11.6352 21.0442 11.0948C26.5031 8.93584 32.5928 9.01496 37.9937 11.315C42.6166 13.3153 46.3355 16.851 48.1435 21.6C49.8831 26.2524 49.6641 31.4112 47.5369 35.8995C45.047 41.2846 40.9895 43.8042 35.7083 45.7885C38.5701 48.8752 43.1362 55.0048 45.9241 58.5326C42.2073 58.6052 38.4901 58.6472 34.7726 58.6584C31.4412 55.0422 27.8244 49.9942 24.6225 46.7622C21.9055 46.1399 20.4446 45.6918 17.9135 44.6424C17.7912 46.5293 17.6745 48.3463 17.4734 50.228C17.2392 53.0161 17.0305 55.8438 16.6778 58.6167C13.5241 58.6819 10.2243 58.634 7.05884 58.6354C7.11094 56.0164 7.55121 52.1985 7.7859 49.5308L9.18512 33.1396C12.1021 33.0708 15.1702 33.1143 18.0996 33.1096C22.1566 38.2754 28.8995 40.2327 34.7738 36.8805C37.0601 35.5575 38.7222 33.3746 39.3896 30.8184C40.0667 28.24 39.7412 25.5892 38.376 23.2915C37.0085 20.9913 34.778 19.3337 32.1811 18.6886C28.9384 17.8947 25.8633 18.5696 23.0489 20.2598C24.7047 22.0082 26.4449 24.0441 28.0614 25.8557C21.917 25.8693 15.7726 25.9165 9.62869 25.997C9.73641 21.4927 10.6545 13.0547 11.1513 8.47058Z"/><path style="fill:var(--lg-letter,#351650)" fill-rule="evenodd" d="M257.724 30.5172C258.763 30.4684 260.099 30.457 261.122 30.5992C264.093 30.9941 266.771 32.6011 268.515 35.0387C275.234 44.2626 267.911 61.6962 255.123 58.9693C251.765 58.2534 250.324 57.1669 248.393 54.4166C248.153 57.392 247.658 60.772 247.289 63.7633C247.04 65.5331 246.874 67.4323 246.687 69.2184C244.178 69.1773 241.587 69.2187 239.073 69.2272C239.174 67.7918 239.371 66.1453 239.575 64.7135C241.162 53.6123 241.84 42.1958 243.675 31.1598L250.985 31.0182L250.472 34.7399C253.046 32.1762 254.112 31.4069 257.724 30.5172ZM261.995 49.0289C264.844 43.2532 263.096 36.2861 255.563 36.6305C246.234 38.9533 246.816 53.8704 256.785 52.9957C259.149 52.2915 260.848 51.3535 261.995 49.0289Z"/><path style="fill:var(--lg-letter,#351650)" fill-rule="evenodd" d="M224.077 30.5501C225.433 30.4715 226.727 30.3954 228.052 30.6419C240.2 32.9072 240.087 50.8987 231.169 56.9417C227.015 59.7582 220.455 60.1984 216.703 56.4583C216.114 55.8693 215.546 54.957 215.091 54.2483C214.685 57.0795 214.315 59.9164 213.982 62.7571C213.696 64.916 213.436 67.0787 213.204 69.2444L205.755 69.2015C206.822 56.8059 208.89 43.6293 210.15 31.1634C212.605 31.157 215.107 31.0976 217.566 31.0638C217.421 32.3757 217.193 33.6701 216.977 34.972C219.366 32.409 220.648 31.3954 224.077 30.5501ZM222.798 36.6751C213.358 37.5612 212.98 53.0221 222.626 53.0306C223.496 52.8547 224.408 52.6752 225.224 52.2766C230.063 49.9135 231.774 40.9639 226.954 37.7757C225.691 36.9402 224.318 36.7399 222.798 36.6751Z"/><path style="fill:var(--lg-letter,#351650)" fill-rule="nonzero" d="M193.931 19.9482C195.44 26.3587 197.268 32.808 198.972 39.1758C200.643 45.6296 202.375 52.0681 204.163 58.4902C201.391 58.5827 198.425 58.5401 195.637 58.5479L193.787 50.9033C190.687 50.951 187.529 50.9258 184.424 50.9316L177.443 50.9072C176.146 53.4596 174.89 56.0332 173.677 58.626L164.869 58.6074C167.416 53.9251 182.993 20.7799 184.428 20.0518C187.512 19.9266 190.83 19.9661 193.931 19.9482ZM188.129 27.8438C186.106 32.77 182.832 39.1778 180.467 44.0684L185.259 44.0605C187.535 44.0439 189.901 44.0582 192.166 43.9395C191.774 42.29 188.636 28.3384 188.129 27.8438Z"/><path style="fill:var(--lg-letter,#351650)" fill-rule="evenodd" d="M119.479 30.5639C125.604 29.5819 133.644 32.1181 134.139 39.0365C134.554 44.8634 133.274 52.7733 132.555 58.6478L125.361 58.6644L125.664 55.724C120.578 60.6832 111.972 60.6597 108.046 54.3305C103.38 42.9852 118.296 37.3936 126.437 44.3275C126.707 40.5019 127.135 36.786 121.866 36.351C118.466 36.0702 115.458 37.049 112.831 39.2416L110.044 34.5092C113.163 32.3038 115.686 31.0951 119.479 30.5639ZM126.074 47.9828C122.925 46.4051 122.125 46.0837 118.581 46.2689C111.187 49.2348 115.603 55.685 121.987 54.2758C123.744 53.6983 124.381 53.3529 125.777 52.1059C125.898 50.7605 126.055 49.3256 126.074 47.9828Z"/><path style="fill:var(--lg-letter,#351650)" fill-rule="evenodd" d="M62.4783 30.5481C74.0062 29.9098 78.6824 35.9744 78.072 47.0901C71.064 47.0328 64.0554 47.052 57.0476 47.1487C57.9526 50.0729 59.0895 52.559 62.4587 53.2229C65.5767 53.8373 68.8358 52.7804 71.407 50.9983L71.6687 50.8157L72.0408 50.9036L75.4089 55.2629C72.9267 57.4718 71.0894 58.303 67.7449 58.969C53.6121 61.7831 44.7892 48.5276 52.5232 36.5246C54.6478 33.2275 58.5478 31.2038 62.4783 30.5481ZM71.2654 42.2649C70.2262 38.0318 68.4524 35.9415 63.8445 36.1614C59.9627 37.0555 58.7388 38.6521 57.2615 42.2336L65.5681 42.2825L71.2654 42.2649Z"/><path style="fill:var(--lg-letter,#351650)" fill-rule="nonzero" d="M91.2314 30.5476C91.6362 30.5148 92.0418 30.489 92.4475 30.4704C96.7189 30.2829 101.082 31.4575 104.287 34.3736C103.285 35.9325 102.323 37.5163 101.401 39.1239C99.5786 37.6459 97.6311 36.7818 95.322 36.2921C93.3642 35.8771 89.1835 36.0769 88.7603 38.6194C90.0403 42.1751 104.133 41.8422 103.976 49.7992C103.837 56.8376 98.6952 58.9844 92.5194 59.2287C87.4468 59.2398 83.5075 58.1799 79.5298 54.8998C80.6457 53.1235 81.8476 51.8629 83.0069 49.8269C86.3801 52.222 89.1192 53.6474 93.3917 53.5338C94.9397 53.4927 96.7553 52.2382 96.6051 50.5558C96.2577 49.9511 95.3917 49.0842 94.6757 48.8501C87.7176 46.5747 77.706 44.2322 83.4618 34.6156C84.914 32.1892 88.3698 31.0153 91.2314 30.5476Z"/><path style="fill:var(--lg-letter,#351650)" fill-rule="nonzero" d="M151.407 30.5356C157.354 30.006 160.94 31.126 165.094 35.4054C163.541 36.8019 162.107 38.3867 160.673 39.9106C160.584 39.8116 160.492 39.7146 160.401 39.6193C157.056 36.196 151.881 35.6629 148.596 39.1785C142.154 46.0718 148.819 56.5434 157.678 51.5991C158.364 51.2174 159.244 50.409 159.922 50.385L163.855 54.8232C158.626 59.7258 151.332 60.72 145.108 57.307C136.038 52.3339 136.476 38.4961 144.911 33.164C147.206 31.7135 148.866 31.2098 151.407 30.5356Z"/></symbol><symbol id="logo-r" viewBox="5 6 47 55"><path style="fill:var(--lg-r,#fff)" fill-rule="nonzero" d="M11.1513 8.47058C12.1887 8.84524 15.5138 12.3383 16.6309 13.3756C17.8092 12.5977 19.7138 11.6352 21.0442 11.0948C26.5031 8.93584 32.5928 9.01496 37.9937 11.315C42.6166 13.3153 46.3355 16.851 48.1435 21.6C49.8831 26.2524 49.6641 31.4112 47.5369 35.8995C45.047 41.2846 40.9895 43.8042 35.7083 45.7885C38.5701 48.8752 43.1362 55.0048 45.9241 58.5326C42.2073 58.6052 38.4901 58.6472 34.7726 58.6584C31.4412 55.0422 27.8244 49.9942 24.6225 46.7622C21.9055 46.1399 20.4446 45.6918 17.9135 44.6424C17.7912 46.5293 17.6745 48.3463 17.4734 50.228C17.2392 53.0161 17.0305 55.8438 16.6778 58.6167C13.5241 58.6819 10.2243 58.634 7.05884 58.6354C7.11094 56.0164 7.55121 52.1985 7.7859 49.5308L9.18512 33.1396C12.1021 33.0708 15.1702 33.1143 18.0996 33.1096C22.1566 38.2754 28.8995 40.2327 34.7738 36.8805C37.0601 35.5575 38.7222 33.3746 39.3896 30.8184C40.0667 28.24 39.7412 25.5892 38.376 23.2915C37.0085 20.9913 34.778 19.3337 32.1811 18.6886C28.9384 17.8947 25.8633 18.5696 23.0489 20.2598C24.7047 22.0082 26.4449 24.0441 28.0614 25.8557C21.917 25.8693 15.7726 25.9165 9.62869 25.997C9.73641 21.4927 10.6545 13.0547 11.1513 8.47058Z"/></symbol><!--LOGO:END-->
+
+  <!-- Icons: Remix-style, taken from the Figma assets where available -->
+  <symbol id="i-capsule" viewBox="0 0 24 24"><path fill="currentColor" d="M19.0002 4.9998C21.1089 7.1085 21.1089 10.5276 19.0002 12.6363L17.0904 14.5443L12.6363 19.0002C10.5276 21.1089 7.1085 21.1089 4.9998 19.0002C2.8911 16.8915 2.8911 13.4724 4.9998 11.3637L11.3628 4.9998C13.4724 2.8911 16.8915 2.8911 19.0002 4.9998ZM14.5452 14.5452L9.4548 9.4548L6.2724 12.6363C4.8666 14.0421 4.8666 16.3218 6.2724 17.7276C7.6782 19.1334 9.9579 19.1334 11.3637 17.7276L14.5452 14.5452Z"/></symbol>
+  <symbol id="i-question" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21C7.0293 21 3 16.9707 3 12C3 7.0293 7.0293 3 12 3C16.9707 3 21 7.0293 21 12C21 16.9707 16.9707 21 12 21ZM12 19.2C15.9765 19.2 19.2 15.9765 19.2 12C19.2 8.02355 15.9765 4.8 12 4.8C8.02355 4.8 4.8 8.02355 4.8 12C4.8 15.9765 8.02355 19.2 12 19.2ZM11.1 14.7H12.9V16.5H11.1V14.7ZM12.9 13.2195V13.8H11.1V12.45C11.1 11.953 11.503 11.55 12 11.55C12.7456 11.55 13.35 10.9456 13.35 10.2C13.35 9.45442 12.7456 8.85 12 8.85C11.3449 8.85 10.7995 9.31649 10.6761 9.9354L8.9103 9.5817C9.19688 8.14943 10.4583 7.06 12 7.06C13.7341 7.06 15.15 8.46588 15.15 10.2C15.15 11.6274 14.1928 12.8331 12.9 13.2195Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM7.4 7.4V11H8.6V7.4H7.4ZM7.4 5V6.2H8.6V5H7.4Z"/></symbol>
+  <symbol id="i-time" viewBox="0 0 14 14"><path fill="currentColor" d="M7 12.25C4.10043 12.25 1.75 9.89957 1.75 7C1.75 4.10043 4.10043 1.75 7 1.75C9.89957 1.75 12.25 4.10043 12.25 7C12.25 9.89957 9.89957 12.25 7 12.25ZM7.525 7V4.375H6.475V8.05H9.625V7H7.525Z"/></symbol>
+  <symbol id="i-mail-send" viewBox="0 0 16 16"><path fill="currentColor" d="M2 4.1V3.1958C2.0011 2.867 2.2664 2.6013 2.5952 2.6H13.4048C13.7336 2.6 14 2.867 14 3.1958V12.8042C13.9989 13.133 13.7336 13.3987 13.4048 13.4H2.5952C2.2664 13.3998 2 13.133 2 12.8042V12.2H12.8V5.18L8 9.5L2 4.1ZM0.8 6.8H3.8V8H0.8V6.8ZM0.8 9.8H5.6V11H0.8V9.8Z"/></symbol>
+  <symbol id="i-file-pdf" viewBox="0 0 24 24"><path fill="currentColor" d="M4.79865 3C4.30274 3 3.9 3.39965 3.9 3.89262V20.1074C3.9 20.5902 4.30028 21 4.79406 21H19.2059C19.6996 21 20.1 20.594 20.1 20.0933L20.0997 7.5L15.6 3H4.79865ZM10.65 7.95H12.45C12.45 10.1909 14.3792 12.5944 16.7846 13.3962L16.3727 15.141C13.5511 14.7379 10.6339 15.9424 7.99923 17.6989L6.93777 16.2472C7.91534 15.4652 8.85264 14.1381 9.54749 12.5881C10.2399 11.0436 10.65 9.36974 10.65 7.95ZM11.19 13.3244C11.4306 12.7877 11.6439 12.2307 11.8233 11.6656C12.2479 12.3178 12.7698 12.9164 13.3592 13.4358C12.4756 13.594 11.6099 13.8536 10.7718 14.1848C10.92 13.9029 11.0596 13.6153 11.19 13.3244Z"/></symbol>
+  <symbol id="i-arrow-up-right" viewBox="0 0 20 20"><path fill="currentColor" d="M13.0582 8.02003L6.49492 14.5833L5.41667 13.5051L11.9792 6.94178H6.19523V5.41667H14.5833V13.8048H13.0582V8.02003Z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 28 28"><path fill="currentColor" d="M3.84171 12.0084C3.3861 12.464 3.3861 13.2027 3.84171 13.6583C4.29732 14.1139 5.03601 14.1139 5.49162 13.6583L5.83332 13.3166L5.83333 16.3748C5.83333 17.4268 5.83332 18.2755 5.88044 18.9661C5.9289 19.6763 6.03106 20.3043 6.27737 20.899C6.86942 22.3283 8.00502 23.4639 9.43435 24.056C10.029 24.3023 10.657 24.4044 11.3672 24.4529C11.4639 24.4595 11.5637 24.4652 11.6667 24.47V19.8333C11.6667 19.4757 11.6667 19.2968 11.6901 19.1472C11.821 18.3106 12.4772 17.6543 13.3138 17.5234C13.4635 17.5 13.6423 17.5 14 17.5C14.3577 17.5 14.5365 17.5 14.6862 17.5234C15.5228 17.6543 16.179 18.3106 16.3099 19.1472C16.3333 19.2968 16.3333 19.4757 16.3333 19.8333V24.47C16.4363 24.4652 16.5361 24.4595 16.6328 24.4529C17.343 24.4044 17.971 24.3023 18.5657 24.056C19.995 23.4639 21.1306 22.3283 21.7226 20.899C21.9689 20.3043 22.0711 19.6763 22.1196 18.9661C22.1667 18.2755 22.1667 17.4268 22.1667 16.3748L22.1667 13.3166L22.5084 13.6583C22.964 14.1139 23.7027 14.1139 24.1583 13.6583C24.6139 13.2027 24.6139 12.464 24.1583 12.0084L19.7455 7.59555C19.0016 6.85166 18.4014 6.25148 17.8797 5.79643C17.3433 5.32851 16.827 4.95669 16.2323 4.71037C15.5356 4.42177 14.7968 4.27385 14.057 4.26662L14 4.26634C13.2412 4.26634 12.4823 4.41435 11.7677 4.71037C11.173 4.95669 10.6567 5.32851 10.1203 5.79643C9.59859 6.25148 8.99853 6.85155 8.25464 7.59545L3.84171 12.0084Z"/></symbol>
+  <symbol id="i-doc-plus" viewBox="0 0 28 28"><path fill="currentColor" d="M15.1667 2.3349C14.9709 2.33323 14.7631 2.33329 14.5401 2.33336L13.2501 2.33338C11.9856 2.33337 10.9658 2.33336 10.1399 2.40084C9.28961 2.47031 8.54273 2.61709 7.85172 2.96918C6.75411 3.52844 5.86172 4.42083 5.30246 5.51844C4.95038 6.20945 4.8036 6.95633 4.73412 7.80666C4.66665 8.63251 4.66665 9.65236 4.66667 10.9168V17.0833C4.66665 18.3477 4.66665 19.3676 4.73412 20.1934C4.8036 21.0438 4.95038 21.7907 5.30246 22.4817C5.86172 23.5793 6.75411 24.4717 7.85172 25.0309C8.54273 25.383 9.28961 25.5298 10.1399 25.5993C10.9658 25.6667 11.9856 25.6667 13.2499 25.6667H14.75C16.0143 25.6667 17.0342 25.6667 17.8601 25.5993C18.7104 25.5298 19.4573 25.383 20.1483 25.0309C21.2459 24.4717 22.1383 23.5793 22.6975 22.4817C23.0496 21.7907 23.1964 21.0438 23.2659 20.1934C23.3334 19.3676 23.3333 18.3477 23.3333 17.0833L23.3334 11.1266C23.3334 10.9036 23.3335 10.6958 23.3318 10.5L20.0217 10.5C19.4067 10.5 18.8761 10.5 18.4391 10.4643C17.9779 10.4267 17.5191 10.3435 17.0777 10.1185C16.4191 9.78297 15.8837 9.24754 15.5481 8.58897C15.3232 8.14752 15.24 7.68877 15.2023 7.22753C15.1666 6.79053 15.1666 6.25998 15.1667 5.64497L15.1667 2.3349ZM10.5 15.1667C10.5 14.5223 11.0223 14 11.6667 14H12.8333V12.8333C12.8333 12.189 13.3557 11.6667 14 11.6667C14.6443 11.6667 15.1667 12.189 15.1667 12.8333V14H16.3333C16.9777 14 17.5 14.5223 17.5 15.1667C17.5 15.811 16.9777 16.3333 16.3333 16.3333H15.1667V17.5C15.1667 18.1443 14.6443 18.6667 14 18.6667C13.3557 18.6667 12.8333 18.1443 12.8333 17.5V16.3333H11.6667C11.0223 16.3333 10.5 15.811 10.5 15.1667Z"/><path fill="currentColor" d="M23.0037 8.16667C22.8672 7.77787 22.6896 7.40411 22.4737 7.05181C22.1118 6.46122 21.6156 5.96528 20.8987 5.2488L20.4179 4.76799C19.7014 4.05112 19.2055 3.55489 18.6149 3.19298C18.2626 2.97708 17.8888 2.79952 17.5 2.66296V5.6C17.5 6.27265 17.5009 6.70697 17.5279 7.03753C17.5538 7.35447 17.5978 7.47197 17.6272 7.52966C17.739 7.74918 17.9175 7.92766 18.137 8.03951C18.1947 8.0689 18.3122 8.11286 18.6291 8.13875C18.9597 8.16576 19.394 8.16667 20.0667 8.16667H23.0037Z"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 28 28"><path fill="currentColor" d="M13.9116 3.50002H14.0883C14.5433 3.49982 14.9022 3.49966 15.2221 3.55032C16.9693 3.82706 18.3396 5.19738 18.6164 6.94461C18.667 7.26446 18.6669 7.62339 18.6667 8.07839V8.25505C18.6669 8.71004 18.667 9.06897 18.6164 9.38882C18.3396 11.1361 16.9693 12.5064 15.2221 12.7831C14.9022 12.8338 14.5433 12.8336 14.0883 12.8334H13.9116C13.4567 12.8336 13.0977 12.8338 12.7779 12.7831C11.0306 12.5064 9.66032 11.1361 9.38359 9.38882C9.33293 9.06898 9.33309 8.71006 9.33329 8.25507V8.07838C9.33309 7.6234 9.33293 7.26445 9.38359 6.94461C9.66032 5.19738 11.0306 3.82706 12.7779 3.55032C13.0977 3.49966 13.4566 3.49982 13.9116 3.50002Z"/><path fill="currentColor" d="M12.0834 14H15.9166C17.181 14 18.2009 14 19.0267 14.0675C19.8771 14.1369 20.6239 14.2837 21.3149 14.6358C22.4126 15.1951 23.3049 16.0874 23.8642 17.1851C24.2163 17.8761 24.3631 18.6229 24.4325 19.4733C24.5 20.2991 24.5 21.3189 24.5 22.5832V23.3333C24.5 23.9777 23.9777 24.5 23.3333 24.5H4.66667C4.02234 24.5 3.5 23.9777 3.5 23.3333V22.5834C3.49999 21.319 3.49998 20.2991 3.56746 19.4733C3.63693 18.6229 3.78371 17.8761 4.1358 17.1851C4.69506 16.0874 5.58744 15.1951 6.68506 14.6358C7.37606 14.2837 8.12295 14.1369 8.97327 14.0675C9.79912 14 10.819 14 12.0834 14ZM10.5 19.8333C10.5 19.189 11.0223 18.6667 11.6667 18.6667H12.8333V17.5C12.8333 16.8557 13.3557 16.3333 14 16.3333C14.6443 16.3333 15.1667 16.8557 15.1667 17.5V18.6667H16.3333C16.9777 18.6667 17.5 19.189 17.5 19.8333C17.5 20.4777 16.9777 21 16.3333 21H15.1667V22.1667C15.1667 22.811 14.6443 23.3333 14 23.3333C13.3557 23.3333 12.8333 22.811 12.8333 22.1667V21H11.6667C11.0223 21 10.5 20.4777 10.5 19.8333Z"/></symbol>
+  <symbol id="i-sbar" viewBox="0 0 78.4012 13"><path fill="currentColor" d="M10 3C10 2.44772 10.4477 2 11 2H12C12.5523 2 13 2.44772 13 3V11C13 11.5523 12.5523 12 12 12H11C10.4477 12 10 11.5523 10 11V3ZM15 1C15 .447715 15.4477 0 16 0H17C17.5523 0 18 .447715 18 1V11C18 11.5523 17.5523 12 17 12H16C15.4477 12 15 11.5523 15 11V1ZM5 6.5C5 5.94772 5.44772 5.5 6 5.5H7C7.55228 5.5 8 5.94772 8 6.5V11C8 11.5523 7.55228 12 7 12H6C5.44772 12 5 11.5523 5 11V6.5ZM0 9C0 8.44772.447715 8 1 8H2C2.55228 8 3 8.44772 3 9V11C3 11.5523 2.55228 12 2 12H1C.447715 12 0 11.5523 0 11V9Z"/><path fill="currentColor" d="M32.1152 8.91895C33.535 7.69339 35.6144 7.69352 37.0342 8.91895C37.1056 8.98488 37.1474 9.07847 37.1494 9.17676C37.1514 9.275 37.1136 9.36963 37.0449 9.43848L34.8213 11.7285C34.7562 11.7958 34.6678 11.8339 34.5752 11.834C34.4825 11.834 34.3933 11.7958 34.3281 11.7285L32.1045 9.43848C32.0359 9.3696 31.998 9.27496 32 9.17676C32.002 9.07847 32.0437 8.98483 32.1152 8.91895ZM29.1094 6.17871C32.1685 3.27412 36.9058 3.27412 39.9648 6.17871C40.0339 6.24682 40.0732 6.34049 40.0742 6.43848C40.0751 6.53636 40.0373 6.63075 39.9697 6.7002L38.6846 8.02539C38.5521 8.16068 38.338 8.16398 38.2021 8.03223C37.1977 7.10381 35.8912 6.58981 34.5361 6.58984C33.1818 6.59042 31.876 7.10432 30.8721 8.03223C30.7362 8.16398 30.5221 8.16074 30.3896 8.02539L29.1045 6.7002C29.0367 6.63084 28.9992 6.53641 29 6.43848C29.0009 6.34051 29.0404 6.24681 29.1094 6.17871ZM26.1074 3.44238C30.7993-1.14723 38.2007-1.14716 42.8926 3.44238C42.9605 3.51057 42.9994 3.60393 43 3.70117C43.0005 3.79826 42.9625 3.89204 42.8955 3.96094L41.6094 5.28613C41.4768 5.42211 41.2616 5.42382 41.127 5.29004C39.3393 3.55527 36.9666 2.588 34.5 2.58789C32.0334 2.58801 29.6608 3.55527 27.873 5.29004C27.7385 5.42393 27.523 5.42228 27.3906 5.28613L26.1035 3.96094C26.0365 3.89201 25.9995 3.79823 26 3.70117C26.0006 3.60393 26.0395 3.51052 26.1074 3.44238Z"/><path fill="none" stroke="currentColor" stroke-opacity=".38" d="M55 12.5H72C73.933 12.5 75.5 10.933 75.5 9V4C75.5 2.067 73.933 .5 72 .5H55C53.067 .5 51.5 2.067 51.5 4V9C51.5 10.933 53.067 12.5 55 12.5Z"/><path fill="currentColor" fill-opacity=".4" d="M77 5V9.22034C77.8491 8.86291 78.4012 8.0314 78.4012 7.11017C78.4012 6.18894 77.8491 5.35744 77 5"/><path fill="currentColor" d="M53 4C53 2.89543 53.8954 2 55 2H72C73.1046 2 74 2.89543 74 4V9C74 10.1046 73.1046 11 72 11H55C53.8954 11 53 10.1046 53 9V4Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5.5M11 6.5 5.5 12l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v13.5M6.5 13l5.5 5.5 5.5-5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M14.5 5.5 18.5 9.5M4.5 19.5l1-4.2L15.8 5a1.8 1.8 0 0 1 2.6 0l.6.6a1.8 1.8 0 0 1 0 2.6L8.7 18.5l-4.2 1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path fill="currentColor" d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm1 4.5-5.2 7.3h3.4l-.9 5.7 5.2-7.3h-3.4l.9-5.7Z"/></symbol>
+  <symbol id="i-warning" viewBox="0 0 24 24"><path fill="currentColor" d="M12.866 3 22.39 19.5a1 1 0 0 1-.866 1.5H2.476a1 1 0 0 1-.866-1.5L11.134 3a1 1 0 0 1 1.732 0ZM11 16v2h2v-2h-2Zm0-7v5h2V9h-2Z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path fill="currentColor" d="M9.83 5 7.83 7H4v12h16V7h-3.83l-2-2H9.83ZM9 3h6l2 2h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4l2-2Zm3 15a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11Zm0-2a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/></symbol>
+  <symbol id="i-flash" viewBox="0 0 24 24"><path fill="currentColor" d="M13 10h7l-9 13v-9H4l9-13v9Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="currentColor" d="m12 1 8.217 1.826a1 1 0 0 1 .783.976v9.987a6 6 0 0 1-2.672 4.992L12 23l-6.328-4.219A6 6 0 0 1 3 13.79V3.802a1 1 0 0 1 .783-.976L12 1Zm4.452 7.222-4.95 4.95-2.828-2.829-1.415 1.415 4.243 4.242 6.364-6.364-1.414-1.414Z"/></symbol><symbol id="i-steth" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></g></symbol>
+  <symbol id="i-pharmacy" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm5 4v3H7v4h3v3h4v-3h3v-4h-3V7h-4Z"/></symbol>
+  <symbol id="i-hospital" viewBox="0 0 24 24"><path fill="currentColor" d="M21 20h2v2H1v-2h2V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v17Zm-10-12H9v2h2v2h2v-2h2V8h-2V6h-2v2Zm3 12h2v-6H8v6h2v-4h4v4Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" d="m12 23.728-6.364-6.364a9 9 0 1 1 12.728 0L12 23.728Zm0-10.728a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4.5V11h-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7.22 6.603 10H3v4h3.603L10 16.78V7.22ZM5.889 16H2a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.889l5.294-4.332a.5.5 0 0 1 .817.387v15.89a.5.5 0 0 1-.817.387L5.89 16Zm13.517 4.134-1.416-1.416A8.978 8.978 0 0 0 21 12a8.982 8.982 0 0 0-3.304-6.968l1.42-1.42A10.976 10.976 0 0 1 23 12c0 3.223-1.386 6.122-3.594 8.134Zm-3.543-3.543-1.422-1.422A3.993 3.993 0 0 0 16 12c0-1.43-.75-2.685-1.88-3.392l1.439-1.439A5.991 5.991 0 0 1 18 12c0 1.842-.83 3.49-2.137 4.591Z"/></symbol>
+  <symbol id="i-sound-off" viewBox="0 0 24 24"><path fill="currentColor" d="M10 7.22 6.603 10H3v4h3.603L10 16.78V7.22ZM5.889 16H2a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.889l5.294-4.332a.5.5 0 0 1 .817.387v15.89a.5.5 0 0 1-.817.387L5.89 16Zm14.525-4 3.536 3.536-1.414 1.414L19 13.414l-3.536 3.536-1.414-1.414L17.586 12 14.05 8.464l1.414-1.414L19 10.586l3.536-3.536 1.414 1.414L20.414 12Z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10Zm-2.29-2.333A17.9 17.9 0 0 1 8.027 13H4.062a8.008 8.008 0 0 0 5.648 6.667ZM10.03 13c.151 2.439.848 4.73 1.97 6.752A15.905 15.905 0 0 0 13.97 13h-3.94Zm9.908 0h-3.965a17.9 17.9 0 0 1-1.683 6.667A8.008 8.008 0 0 0 19.938 13ZM4.062 11h3.965A17.9 17.9 0 0 1 9.71 4.333 8.008 8.008 0 0 0 4.062 11Zm5.969 0h3.938A15.905 15.905 0 0 0 12 4.248 15.905 15.905 0 0 0 10.03 11Zm4.259-6.667A17.9 17.9 0 0 1 15.973 11h3.965a8.008 8.008 0 0 0-5.648-6.667Z"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M11.672 6.17c.952 0 2.143-.643 2.853-1.5.643-.777 1.111-1.861 1.111-2.946 0-.147-.013-.294-.04-.415-1.058.04-2.33.71-3.093 1.607-.603.683-1.152 1.754-1.152 2.852 0 .161.027.322.04.375.067.014.174.027.281.027ZM8.32 22.37c1.3 0 1.876-.871 3.495-.871 1.647 0 2.009.844 3.455.844 1.42 0 2.371-1.312 3.268-2.598 1.004-1.473 1.42-2.919 1.446-2.986-.093-.027-2.812-1.138-2.812-4.258 0-2.705 2.142-3.923 2.263-4.017-1.42-2.035-3.575-2.089-4.164-2.089-1.594 0-2.892.964-3.709.964-.884 0-2.049-.91-3.428-.91-2.624 0-5.289 2.169-5.289 6.266 0 2.544.991 5.235 2.21 6.976 1.044 1.473 1.954 2.678 3.266 2.678Z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="#34A853" d="M3.6 2.3 13.5 12l-9.9 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1Z"/><path fill="#FBBC04" d="m17 8.6-3.5 3.4L17 15.4l3.9-2.2c.8-.5.8-1.6 0-2.1L17 8.6Z"/><path fill="#4285F4" d="M13.5 12 3.6 21.7c.3.2.8.2 1.2 0L17 15.4 13.5 12Z"/><path fill="#EA4335" d="M13.5 12 17 8.6 4.8 2.3c-.4-.2-.9-.2-1.2 0L13.5 12Z"/></symbol>
+  <symbol id="i-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.23c0-.7-.06-1.36-.18-2H12v3.78h5.4a4.6 4.6 0 0 1-2 3.03v2.5h3.24c1.9-1.75 2.96-4.32 2.96-7.31Z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.24-2.5c-.9.6-2.04.95-3.38.95-2.6 0-4.8-1.75-5.59-4.1H3.07v2.58A10 10 0 0 0 12 22Z"/><path fill="#FBBC04" d="M6.41 13.92A6 6 0 0 1 6.1 12c0-.67.11-1.31.31-1.92V7.5H3.07A10 10 0 0 0 2 12c0 1.61.39 3.14 1.07 4.5l3.34-2.58Z"/><path fill="#EA4335" d="M12 5.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87A9.6 9.6 0 0 0 12 2a10 10 0 0 0-8.93 5.5l3.34 2.58C7.2 7.73 9.4 5.98 12 5.98Z"/></symbol>
+  <symbol id="i-translate" viewBox="0 0 24 24"><path fill="currentColor" d="m18.5 10 4.4 11h-2.155l-1.201-3h-4.09l-1.199 3h-2.154L16.5 10h2Zm-1 2.885L16.253 16h2.492L17.5 12.885ZM8 2v2h6v2h-1.968a18.222 18.222 0 0 1-3.62 6.301 14.864 14.864 0 0 0 2.336 1.707l-.751 1.878A17.015 17.015 0 0 1 9 13.725a16.676 16.676 0 0 1-6.201 3.548l-.536-1.929a14.7 14.7 0 0 0 5.327-3.042A18.078 18.078 0 0 1 4.767 8h2.24A16.032 16.032 0 0 0 9 10.877a16.165 16.165 0 0 0 2.91-4.876L2 6V4h6V2h2Z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><path fill="currentColor" d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0v1Zm-2 0V9A5 5 0 0 0 7 9v1h10Zm-6 4v4h2v-4h-2Z"/></symbol>
+  <symbol id="i-water" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3.1 7.05 8.05a7 7 0 1 0 9.9 0L12 3.1Zm0-2.828 6.364 6.364a9 9 0 1 1-12.728 0L12 .272Z"/></symbol>
+
+  <!-- Illustration pieces from the onboarding world -->
+  <symbol id="pill-capsule" viewBox="0 0 100 40"><rect x="2" y="2" width="96" height="36" rx="18" fill="#fff"/><path d="M50 2h30a18 18 0 0 1 0 36H50Z" fill="#B88BF0"/><rect x="58" y="9" width="26" height="6" rx="3" fill="#fff" opacity=".35"/></symbol>
+  <symbol id="pill-tablet" viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#fff"/><circle cx="30" cy="30" r="28" fill="none" stroke="#E6DDF2" stroke-width="2"/><path d="M14 44 44 14" stroke="#3E1868" stroke-width="5" stroke-linecap="round"/></symbol>
+  <symbol id="pill-bottle" viewBox="0 0 90 120"><rect x="16" y="2" width="58" height="26" rx="6" fill="#F4F2F7"/><rect x="50" y="2" width="24" height="26" rx="6" fill="#D9D5E0"/><rect x="8" y="26" width="74" height="92" rx="12" fill="#9C5DE6"/><rect x="8" y="26" width="30" height="92" rx="12" fill="#B07BEE"/><rect x="8" y="58" width="74" height="40" fill="#fff" opacity=".92"/><rect x="18" y="68" width="34" height="6" rx="3" fill="#C8B6E2"/><rect x="18" y="80" width="22" height="6" rx="3" fill="#E1D6F0"/></symbol>
+  <symbol id="pill-blister" viewBox="0 0 90 140"><rect x="2" y="2" width="86" height="136" rx="14" fill="#fff"/><rect x="2" y="2" width="86" height="136" rx="14" fill="none" stroke="#E7E0F0" stroke-width="2"/><g fill="#A15BE8"><rect x="14" y="16" width="24" height="12" rx="6"/><rect x="52" y="16" width="24" height="12" rx="6"/><rect x="14" y="40" width="24" height="12" rx="6"/><rect x="52" y="40" width="24" height="12" rx="6"/><rect x="14" y="64" width="24" height="12" rx="6"/><rect x="52" y="64" width="24" height="12" rx="6"/><rect x="14" y="88" width="24" height="12" rx="6"/><rect x="52" y="88" width="24" height="12" rx="6"/><rect x="14" y="112" width="24" height="12" rx="6"/><rect x="52" y="112" width="24" height="12" rx="6"/></g><path d="M45 8v124" stroke="#EEE8F5" stroke-width="2"/></symbol>
+</svg>
+
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav" data-nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#inicio" aria-label="ResacApp, inicio">
+      <svg class="logo logo-on-dark" viewBox="5 5 269 72" role="img" aria-hidden="true"><use href="#logo-word"/></svg>
+    </a>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#medico">Revisión médica</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#preguntas">FAQs</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-login" href="https://app.resacapp.com/login" target="_blank" rel="noopener noreferrer">Login</a>
+      <a class="btn btn-pink btn-sm" href="https://app.resacapp.com/" data-download>Usar la APP <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mnav" id="menu-movil" hidden>
+    <nav aria-label="Navegación móvil">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#medico">Revisión médica</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#instrucciones">Instrucciones</a>
+      <a href="#preguntas">FAQs</a>
+    </nav>
+    <div class="mnav-actions">
+      <a class="btn btn-pink btn-lg" href="https://app.resacapp.com/" data-download>Usar la APP <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-ghost btn-lg" href="https://app.resacapp.com/login" target="_blank" rel="noopener noreferrer">Login</a>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-glow"></div>
+    <svg class="hero-rings" viewBox="0 0 800 800"><circle cx="400" cy="400" r="250"/><circle cx="400" cy="400" r="330"/><circle cx="400" cy="400" r="395"/></svg>
+    <svg class="float f1"><use href="#pill-capsule"/></svg>
+    <svg class="float f2"><use href="#pill-tablet"/></svg>
+    <svg class="float f3"><use href="#pill-blister"/></svg>
+    <svg class="float f4"><use href="#pill-bottle"/></svg>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 id="hero-title" class="reveal">La APP para <span class="hl">curar la Resaca</span></h1>
+      <p class="lede reveal">Descarga tu receta electrónica para comprar el pack anti resaca en la farmacia más cercana sin tener que ir a urgencias.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-pink btn-lg" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost btn-lg" href="#como-funciona">Ver cómo funciona</a>
+      </div>
+      <a class="doc reveal" href="#medico">
+        <span class="md-av" aria-hidden="true"><svg><use href="#i-steth"/></svg></span>
+        <span><b>Un Médico Te Ayuda</b><small>Médicos colegiados en España</small></span>
+        <svg class="ic" aria-hidden="true"><use href="#i-chevron"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-stage" data-hero>
+      <div class="phone-slot hero-phone">
+        <div class="phone" data-sb="light">
+          <div class="phone-screen">
+            <div class="sb" aria-hidden="true"><span class="sb-time">9:41</span><span class="sb-island"></span><svg class="sb-icons" viewBox="0 0 78.4 13"><use href="#i-sbar"/></svg></div>
+
+            <div class="scr scr-home is-active" data-screen="home" data-sb="light">
+              <div class="app-bg"></div>
+              <div class="home-shade"></div>
+              <svg class="home-logo logo-on-dark" viewBox="5 5 269 72" aria-hidden="true"><use href="#logo-word"/></svg>
+              <svg class="home-arc" viewBox="0 0 393 200" aria-hidden="true">
+                <path id="arc-top" d="M 60 182 A 146 146 0 0 1 333 182" fill="none"/>
+                <text><textPath href="#arc-top" startOffset="50%" text-anchor="middle">↓  SOLICITA TU RECETA MÉDICA DIGITAL  ↓</textPath></text>
+              </svg>
+              <span class="home-line l"></span><span class="home-line r"></span>
+              <button class="rx" type="button" data-rx aria-label="Solicitar receta: ver demostración">
+                <svg class="rx-svg" viewBox="-14 -14 280 280" aria-hidden="true">
+                  <circle cx="126" cy="126" r="122" fill="none" stroke="#171717" stroke-opacity=".24" stroke-width="29"/>
+                  <circle cx="126" cy="126" r="136" fill="none" stroke="#fff" stroke-opacity=".16"/>
+                  <image class="rx-glow" href="assets/figma/progress-blur.png" x="1.5" y="1.5" width="249" height="249"/>
+                  <circle class="rx-track" cx="126" cy="126" r="117" fill="none" stroke-width="12"/>
+                  <circle class="rx-prog" cx="126" cy="126" r="117" fill="none" stroke="#27B0FF" stroke-width="12" filter="url(#f-ring)" pathLength="100" transform="rotate(-90 126 126)"/>
+                  <circle class="rx-ticks" cx="126" cy="126" r="117" fill="none" stroke="#1B5E8E" stroke-opacity=".32" stroke-width="12" pathLength="160" stroke-dasharray=".45 9.55" transform="rotate(-90.2 126 126)"/>
+                  <g class="rx-face">
+                    <circle cx="126" cy="126" r="111.18" fill="url(#g-btn)" filter="url(#f-btn)"/>
+                    <circle cx="126" cy="126" r="108.68" fill="none" stroke="#000" stroke-opacity=".08" stroke-width="5"/>
+                    <g transform="translate(111.2 43) scale(1.2353)" filter="url(#f-capsule)"><use href="#i-capsule" width="24" height="24" color="#28064A"/></g>
+                    <g class="rx-words" font-weight="900" font-size="32" text-anchor="middle" letter-spacing="-.16">
+                      <text x="126" y="128" fill="#28064A" filter="url(#f-emboss)">SOLICITAR</text>
+                      <text x="126" y="128" fill="url(#g-rxtext)">SOLICITAR</text>
+                      <text x="126" y="160" fill="#28064A" filter="url(#f-emboss)">RECETA</text>
+                      <text x="126" y="160" fill="url(#g-rxtext)">RECETA</text>
+                    </g>
+                    <use href="#i-time" x="119" y="190" width="14" height="14" color="#A4A4A4"/>
+                    <path id="arc-rx" d="M 41.1 175 A 98 98 0 0 0 210.9 175" fill="none"/>
+                    <text class="rx-sub"><textPath href="#arc-rx" startOffset="50%" text-anchor="middle">Solicitud en 5 min</textPath></text>
+                  </g>
+                </svg>
+              </button>
+              <div class="home-info">
+                <div class="glass box-proc">
+                  <p class="bp-t">Proceso simple</p>
+                  <ol>
+                    <li data-proc="1"><b><span>1</span><svg aria-hidden="true"><use href="#i-check"/></svg></b>Solicitar y pagar receta médica</li>
+                    <li data-proc="2"><b><span>2</span><svg aria-hidden="true"><use href="#i-check"/></svg></b>Revisión por médico colegiado</li>
+                    <li data-proc="3"><b><span>3</span><svg aria-hidden="true"><use href="#i-check"/></svg></b>Ticket digital para retirar en farmacia</li>
+                  </ol>
+                </div>
+                <div class="mini-row">
+                  <div class="glass mini"><span class="mi"><svg aria-hidden="true"><use href="#i-question"/></svg></span><span>Seguro y<br>regulado</span></div>
+                  <div class="glass mini"><span class="mi"><svg aria-hidden="true"><use href="#i-capsule"/></svg></span><span>Pack completo<br>recuperación</span></div>
+                </div>
+              </div>
+              <p class="home-hint"><svg aria-hidden="true"><use href="#i-info"/></svg>Receta oficial enviada por REMPE</p>
+              <div class="tabbar" aria-hidden="true"><span class="tab is-on"><svg><use href="#i-home"/></svg><i></i></span><span class="tab"><svg><use href="#i-doc-plus"/></svg></span><span class="tab"><svg><use href="#i-user-plus"/></svg></span></div>
+            </div>
+
+            <div class="home-ind" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="tap-hint" aria-hidden="true"><span class="tap-dot"></span><span class="tap-l">Tócalo</span></div>
+      </div>
+
+      <!-- Outcomes orbiting the phone -->
+      <div class="oc oc-review" data-oc="review" aria-hidden="true">
+        <span class="md-av" aria-hidden="true"><svg><use href="#i-steth"/></svg></span>
+        <div class="oc-txt"><p class="oc-t"><span class="t-wait">En revisión médica</span><span class="t-ok">Solicitud aprobada</span></p><p class="oc-s"><span class="t-wait">Médico colegiado · 5-10 min</span><span class="t-ok">Revisada por un médico</span></p></div>
+        <span class="oc-state"><i class="spin"></i><svg><use href="#i-check"/></svg></span>
+      </div>
+      <div class="oc oc-push" data-oc="push" aria-hidden="true">
+        <span class="appicon"><svg viewBox="5 6 47 55"><use href="#logo-r"/></svg></span>
+        <div class="oc-txt"><p class="push-h"><b>RESACAPP</b><span>ahora</span></p><p class="oc-t">Tu receta electrónica</p><p class="oc-s">Ya está disponible en tu correo.</p></div>
+        <span class="pdf"><svg><use href="#i-file-pdf"/></svg>PDF</span>
+      </div>
+      <div class="oc oc-qr" data-oc="qr" aria-hidden="true">
+        <svg class="qr" data-qr="demo" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg>
+        <div class="oc-txt"><p class="oc-t">Presenta el código QR</p><p class="oc-s">en tu farmacia. Tu receta, contigo.</p><p class="demo-tag">Demostración · sin validez médica</p></div>
+      </div>
+      <div class="oc oc-dose" data-oc="dose" aria-hidden="true">
+        <p class="dose-l">Próxima dosis</p>
+        <p class="dose-t" data-countdown="2712">00:45<span>:12</span></p>
+        <p class="oc-s">Tu pauta, paso a paso</p>
+      </div>
+
+      <div class="stage-ctrl">
+        <button class="chip-btn" type="button" data-hero-replay><svg aria-hidden="true"><use href="#i-refresh"/></svg>Repetir demostración</button>
+        <button class="chip-btn" type="button" data-sound aria-pressed="false"><svg class="s-off" aria-hidden="true"><use href="#i-sound-off"/></svg><svg class="s-on" aria-hidden="true"><use href="#i-sound"/></svg><span>Aviso con sonido</span></button>
+      </div>
+      <p class="sr-only" aria-live="polite" data-hero-live></p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <ul class="trust">
+      <li><svg aria-hidden="true"><use href="#i-shield"/></svg><span><b>Revisión médica real</b>Tu solicitud se aprueba individualmente</span></li>
+      <li><svg aria-hidden="true"><use href="#i-file-pdf"/></svg><span><b>Receta electrónica</b>Tras la aprobación del médico</span></li>
+      <li><svg aria-hidden="true"><use href="#i-pharmacy"/></svg><span><b>Tu farmacia de siempre</b>La medicación se compra aparte</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CÓMO FUNCIONA ============ -->
+<section class="how" id="como-funciona" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="how-title" class="reveal">Cómo funciona</h2>
+      <p class="reveal">Recorre la app aquí mismo, sin registrarte. Toca la pantalla del móvil o sigue bajando.</p>
+    </div>
+
+    <div class="how-grid" data-how>
+      <ol class="how-steps">
+        <li class="step is-active" data-step="0">
+          <button class="step-btn" type="button" aria-controls="how-phone"><span class="step-n">1</span><span class="step-t">Entra en ResacApp.</span></button>
+          <div class="step-body">
+            <p>Crea tu cuenta y verifica tu identidad con tu documento y un selfie. Solo la primera vez.</p>
+          </div>
+        </li>
+        <li class="step" data-step="1">
+          <button class="step-btn" type="button" aria-controls="how-phone"><span class="step-n">2</span><span class="step-t">Rellena el formulario</span></button>
+          <div class="step-body">
+            <p>Responde al cuestionario para conocer bien tu caso.</p>
+            <p class="try"><svg aria-hidden="true"><use href="#i-capsule"/></svg>Prueba a responder «Sí»: verás cómo la app te protege cuando no es seguro continuar.</p>
+          </div>
+        </li>
+        <li class="step" data-step="2">
+          <button class="step-btn" type="button" aria-controls="how-phone"><span class="step-n">3</span><span class="step-t">Recibe la receta</span></button>
+          <div class="step-body">
+            <p>Una vez aprobada tu solicitud, recibirás la receta electrónica en tu correo en menos de 20 minutos.</p>
+          </div>
+        </li>
+        <li class="step" data-step="3">
+          <button class="step-btn" type="button" aria-controls="how-phone"><span class="step-n">4</span><span class="step-t">Ve a la farmacia que prefieras</span></button>
+          <div class="step-body">
+            <p>Presenta el código QR y compra el pack antiresaca sin tener que ir a urgencias.</p>
+            <p class="try"><svg aria-hidden="true"><use href="#i-pin"/></svg>Toca los pines del mapa para elegir farmacia.</p>
+          </div>
+        </li>
+        <li class="step" data-step="4">
+          <button class="step-btn" type="button" aria-controls="how-phone"><span class="step-n">5</span><span class="step-t">Disfruta de tu día</span></button>
+          <div class="step-body">
+            <p>Resaca fuera.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="how-stage">
+        <div class="how-sticky">
+          <div class="phone-slot how-phone" id="how-phone">
+            <div class="phone" data-sb="light">
+              <div class="phone-screen">
+                <div class="sb" aria-hidden="true"><span class="sb-time">9:41</span><span class="sb-island"></span><svg class="sb-icons" viewBox="0 0 78.4 13"><use href="#i-sbar"/></svg></div>
+
+                <!-- 1a · Bienvenida -->
+                <div class="scr scr-login is-active" data-screen="login" data-sb="light">
+                  <div class="login-bg"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+                  <svg class="lp lp1"><use href="#pill-capsule"/></svg>
+                  <svg class="lp lp2"><use href="#pill-tablet"/></svg>
+                  <svg class="login-logo logo-on-dark" viewBox="5 5 269 72" aria-hidden="true"><use href="#logo-word"/></svg>
+                  <div class="login-sheet">
+                    <button class="a-btn a-pink" type="button" data-act="signup">Crear cuenta</button>
+                    <div class="or"><span>o</span></div>
+                    <button class="a-btn a-white" type="button" data-act="signup"><svg aria-hidden="true"><use href="#i-google"/></svg>Continuar con Google</button>
+                    <button class="a-link" type="button" data-act="signup"><svg aria-hidden="true"><use href="#i-mail-send"/></svg>Continuar con Correo Electrónico</button>
+                  </div>
+                </div>
+
+                <!-- 1b · Documento -->
+                <div class="scr scr-cam" data-screen="scan" data-sb="light">
+                  <div class="cam-feed"></div>
+                  <span class="cam-back"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></span>
+                  <div class="cam-frame frame-doc">
+                    <div class="idcard" aria-hidden="true">
+                      <p class="id-h">DOCUMENTO DE IDENTIDAD <em>DEMO</em></p>
+                      <div class="id-row">
+                        <svg class="id-photo" viewBox="0 0 60 76"><rect width="60" height="76" rx="4" fill="#D7E3DD"/><circle cx="30" cy="30" r="13" fill="#9AAFA4"/><path d="M8 76c2-16 11-24 22-24s20 8 22 24Z" fill="#9AAFA4"/></svg>
+                        <div class="id-lines"><i style="width:70%"></i><i style="width:48%"></i><i style="width:82%"></i><i style="width:56%"></i><i style="width:64%"></i></div>
+                      </div>
+                      <p class="id-mrz">IDESP&lt;&lt;DEMO&lt;&lt;RESACAPP&lt;&lt;&lt;&lt;&lt;</p>
+                    </div>
+                    <span class="scanfill"></span>
+                    <i class="cc tl"></i><i class="cc tr"></i><i class="cc bl"></i><i class="cc br"></i>
+                    <span class="cam-ok"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
+                  </div>
+                  <p class="cam-t">Frente de tu identificación</p>
+                  <p class="cam-s">Coloca claramente las 4 esquinas del frente en el marco y quita cualquier cubierta</p>
+                  <div class="cam-bar"><span class="cb-i"><svg aria-hidden="true"><use href="#i-camera"/></svg></span><span class="shutter"></span><span class="cb-i"><svg aria-hidden="true"><use href="#i-flash"/></svg></span></div>
+                </div>
+
+                <!-- 1c · Selfie -->
+                <div class="scr scr-cam scr-selfie" data-screen="selfie" data-sb="light">
+                  <div class="cam-feed selfie-feed">
+                    <svg class="face" viewBox="0 0 393 852" aria-hidden="true">
+                      <defs>
+                        <radialGradient id="g-face" cx=".45" cy=".38" r=".7"><stop offset="0" stop-color="#EDC9AC"/><stop offset="1" stop-color="#C4957A"/></radialGradient>
+                        <radialGradient id="g-room" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#8FA597"/><stop offset="1" stop-color="#3D5046"/></radialGradient>
+                      </defs>
+                      <rect width="393" height="852" fill="url(#g-room)"/>
+                      <ellipse cx="40" cy="250" rx="90" ry="180" fill="#A9BDB1" opacity=".35"/>
+                      <ellipse cx="360" cy="420" rx="70" ry="220" fill="#2F4038" opacity=".35"/>
+                      <path d="M108 300C100 214 146 172 198 172c56 0 98 44 90 128l10 190c-22-44-34-92-36-128H136c-2 36-14 84-36 128Z" fill="#2B1F2C"/>
+                      <path d="M30 852c10-210 82-300 166-306 84 6 156 96 166 306Z" fill="#6E8FB8"/>
+                      <path d="M150 548c22 26 70 26 92 0l-6 30c-20 18-60 18-80 0Z" fill="#5A7AA3"/>
+                      <path d="M166 430h60v104c-14 22-46 22-60 0Z" fill="#BE8E73"/>
+                      <ellipse cx="196" cy="350" rx="76" ry="96" fill="url(#g-face)"/>
+                      <path d="M120 336c6-74 46-106 90-104 46 2 80 36 78 96-22-38-58-58-100-54-30 3-54 24-68 62Z" fill="#2B1F2C"/>
+                      <path d="M156 336q13-8 26 0M212 336q13-8 26 0" stroke="#3B2A2A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                      <ellipse cx="169" cy="356" rx="6.5" ry="5" fill="#3B2A2A"/><ellipse cx="225" cy="356" rx="6.5" ry="5" fill="#3B2A2A"/>
+                      <path d="M197 364q-7 20 4 24" stroke="#A9705A" stroke-width="3" fill="none" stroke-linecap="round"/>
+                      <path d="M177 406q20 13 40 0" stroke="#9E5A50" stroke-width="4" fill="none" stroke-linecap="round"/>
+                      <circle cx="120" cy="392" r="5" fill="#E9D9B8"/><circle cx="272" cy="392" r="5" fill="#E9D9B8"/>
+                    </svg>
+                  </div>
+                  <span class="cam-back"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></span>
+                  <div class="cam-frame frame-face">
+                    <span class="scanfill"></span>
+                    <i class="cc tl"></i><i class="cc tr"></i><i class="cc bl"></i><i class="cc br"></i>
+                    <span class="cam-ok"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
+                  </div>
+                  <p class="cam-t">Centra tu cara</p>
+                  <p class="cam-s">Apunta tu cara directamente a la caja y luego toma una foto.</p>
+                  <div class="cam-bar"><span class="cb-i"><svg aria-hidden="true"><use href="#i-camera"/></svg></span><button class="shutter" type="button" data-act="selfie-done" aria-label="Continuar al cuestionario"></button><span class="cb-i"><svg aria-hidden="true"><use href="#i-flash"/></svg></span></div>
+                </div>
+
+                <!-- 2 · Cuestionario -->
+                <div class="scr scr-quiz" data-screen="quiz" data-sb="dark">
+                  <div class="q-top"><span class="q-back"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></span><span class="q-acc">¿Ya tienes cuenta? <b>Identifícate</b></span></div>
+                  <div class="q-prog"><i></i></div>
+                  <div class="q-head">
+                    <span class="q-ico"><svg aria-hidden="true"><use href="#i-question"/></svg><em>2</em></span>
+                    <span class="q-ht"><b>Información de Seguridad</b><small>Solo 2 preguntas rápidas</small></span>
+                    <span class="q-count" data-qcount>1/2</span>
+                  </div>
+                  <div class="q-body">
+                    <fieldset class="q-card" data-q="1">
+                      <legend>¿Alergias a medicamentos?</legend>
+                      <button class="q-opt" type="button" data-a="no"><i></i>No tengo alergias</button>
+                      <button class="q-opt" type="button" data-a="yes"><i></i>Sí, soy alérgico</button>
+                      <div class="q-sub" hidden>
+                        <p>¿A qué tipo de medicamento?</p>
+                        <button class="q-chk" type="button" data-allergy><svg aria-hidden="true"><use href="#i-capsule"/></svg>Antibióticos<i></i></button>
+                        <button class="q-chk" type="button" data-allergy><svg aria-hidden="true"><use href="#i-capsule"/></svg>Antiinflamatorios no esteroideos<i></i></button>
+                        <button class="q-chk" type="button" data-allergy><svg aria-hidden="true"><use href="#i-capsule"/></svg>Anticonvulsivos<i></i></button>
+                        <button class="q-chk" type="button" data-allergy><svg aria-hidden="true"><use href="#i-capsule"/></svg>Otros<i></i></button>
+                      </div>
+                    </fieldset>
+                    <fieldset class="q-card" data-q="2" hidden>
+                      <legend>¿Embarazada o lactando?</legend>
+                      <button class="q-opt" type="button" data-a="no"><i></i>No</button>
+                      <button class="q-opt" type="button" data-a="yes"><i></i>Sí</button>
+                    </fieldset>
+                  </div>
+                  <div class="q-foot"><button class="a-btn a-pink" type="button" data-act="q-next" disabled>Continuar</button></div>
+                  <div class="q-loading" aria-hidden="true"><span class="ring-spin"></span><p>Comprobando tus respuestas…</p></div>
+                </div>
+
+                <!-- 2b · Denegado -->
+                <div class="scr scr-deny" data-screen="deny" data-sb="light">
+                  <div class="deny-top">
+                    <span class="deny-ico"><i>!</i></span>
+                    <span><b>No Puedes Continuar</b><small>Por tu seguridad, bloqueamos esta solicitud</small></span>
+                  </div>
+                  <div class="deny-card">
+                    <p class="dc-t">Restricción Activa</p>
+                    <p class="dc-s">Tu cuestionario indica que no es seguro aprobar esta receta.</p>
+                    <p class="dc-chip"><svg aria-hidden="true"><use href="#i-capsule"/></svg><span data-deny-reason>Alergias medicamentosas detectadas</span></p>
+                  </div>
+                  <p class="deny-h">Centros médicos más cercanos</p>
+                  <div class="map map-red">
+                    <img src="assets/figma/map.png" alt="" width="321" height="321">
+                    <span class="mpin red" style="left:12%;top:30%"><svg aria-hidden="true"><use href="#i-hospital"/></svg></span>
+                    <span class="mpin red" style="left:80%;top:38%"><svg aria-hidden="true"><use href="#i-hospital"/></svg></span>
+                    <span class="mpin red" style="left:52%;top:72%"><svg aria-hidden="true"><use href="#i-hospital"/></svg></span>
+                  </div>
+                  <p class="deny-note"><svg aria-hidden="true"><use href="#i-info"/></svg>Consulta presencial con médico para evaluar alternativas seguras.</p>
+                  <div class="deny-foot"><button class="a-btn a-whitefill" type="button" data-act="quiz-reset">Volver a inicio</button></div>
+                </div>
+
+                <!-- 3a · Pago -->
+                <div class="scr scr-app" data-screen="pay" data-sb="light">
+                  <div class="app-bg"></div>
+                  <div class="app-head"><span class="ah-back"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></span><p>Confirmar y Pagar</p></div>
+                  <div class="app-body">
+                    <div class="glass2 pack">
+                      <div class="pack-row"><span class="pk-i"><svg aria-hidden="true"><use href="#i-capsule"/></svg></span><span><b>Pack de recuperación</b><small>Revisión médica + receta + pauta guiada</small></span></div>
+                      <hr>
+                      <div class="pack-total"><span><b>Total a pagar</b><small>IVA incluido</small></span><strong>15€</strong></div>
+                    </div>
+                    <div class="pm-head"><p>Método de pago</p><span><i><svg aria-hidden="true"><use href="#i-edit"/></svg></i><i><svg aria-hidden="true"><use href="#i-plus"/></svg></i></span></div>
+                    <div class="pm is-sel"><span class="pm-logo mc"><i></i><i></i></span><span><b>Tarjeta de demostración</b><small>•••• •••• •••• 4242</small></span><i class="radio"></i></div>
+                    <div class="pm"><span class="pm-logo"><b>VISA</b></span><span><b>Otra tarjeta</b><small>•••• •••• •••• 0020</small></span><i class="radio"></i></div>
+                    <div class="pm"><span class="pm-logo"><svg aria-hidden="true"><use href="#i-apple"/></svg></span><span><b>Apple Pay</b></span><i class="radio"></i></div>
+                    <p class="terms"><i class="cbx is-on"><svg aria-hidden="true"><use href="#i-check"/></svg></i>Acepto términos y política de privacidad. Entiendo que solo puedo solicitar cada 72h.</p>
+                  </div>
+                  <div class="app-foot">
+                    <button class="a-btn a-pink" type="button" data-act="pay">Pagar €15</button>
+                    <p class="secure"><svg aria-hidden="true"><use href="#i-shield"/></svg>Demostración: no se realiza ningún cobro</p>
+                  </div>
+                </div>
+
+                <!-- 3b · Estado -->
+                <div class="scr scr-app" data-screen="status" data-sb="light">
+                  <div class="app-bg"></div>
+                  <div class="app-head"><span class="ah-back"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></span><p>Estado de solicitud</p></div>
+                  <div class="paid"><span class="paid-i"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span><b>Pago Completado</b><small>#RES-DEMO-001 &nbsp;|&nbsp; <span data-today></span></small></span></div>
+                  <div class="app-body">
+                    <div class="glass2 rev">
+                      <div class="rev-row"><span class="rev-i"><svg aria-hidden="true"><use href="#i-time"/></svg></span><span><b>En revisión médica</b><small>5-10 minutos</small></span></div>
+                      <hr>
+                      <p>Un médico está revisando tu cuestionario. Te notificaremos cuando esté listo.</p>
+                    </div>
+                    <div class="glass2 notify"><svg aria-hidden="true"><use href="#i-bell"/></svg>Te notificaremos cuando esté lista</div>
+                    <div class="glass2 tl">
+                      <div class="tl-row is-done" data-tl="0"><i><svg aria-hidden="true"><use href="#i-check"/></svg></i>Pago completado</div>
+                      <div class="tl-row" data-tl="1"><i><svg aria-hidden="true"><use href="#i-check"/></svg></i>Revisión médica en curso</div>
+                      <div class="tl-row" data-tl="2"><i><svg aria-hidden="true"><use href="#i-check"/></svg></i>Generando receta oficial REMPE</div>
+                    </div>
+                  </div>
+                  <div class="app-foot"><button class="a-btn a-pink" type="button" data-act="refresh"><svg aria-hidden="true"><use href="#i-refresh"/></svg>Actualizar</button></div>
+                </div>
+
+                <!-- 3c · Receta aprobada -->
+                <div class="scr scr-app" data-screen="approved" data-sb="light">
+                  <div class="app-bg"></div>
+                  <div class="ok-top"><span class="ok-check"><svg aria-hidden="true"><use href="#i-check"/></svg></span><b>Receta aprobada</b><small>Documento enviado por REMPE</small></div>
+                  <div class="app-body ok-body">
+                    <div class="glass2 rx-doc">
+                      <div class="rd-row"><span class="rd-i"><svg aria-hidden="true"><use href="#i-file-pdf"/></svg></span><span><b>Receta oficial enviada</b><small>receta-RES-DEMO-001.pdf</small></span></div>
+                      <div class="rd-mail"><svg aria-hidden="true"><use href="#i-mail-send"/></svg><span><b>tu@correo.com</b><small><span>Código: RES-DEMO-001</span><span>Válido hasta <span data-valid></span></span></small></span></div>
+                      <p class="rd-open">Abrir app de correo <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></p>
+                    </div>
+                    <p class="ok-h">Recoge tu medicación</p>
+                    <div class="map map-blue">
+                      <img src="assets/figma/map.png" alt="" width="321" height="321">
+                      <span class="mpin blue" style="left:20%;top:24%"><svg aria-hidden="true"><use href="#i-capsule"/></svg></span>
+                      <span class="mpin blue" style="left:76%;top:20%"><svg aria-hidden="true"><use href="#i-capsule"/></svg></span>
+                      <span class="mpin blue" style="left:50%;top:58%"><svg aria-hidden="true"><use href="#i-capsule"/></svg></span>
+                    </div>
+                    <p class="ok-note"><svg aria-hidden="true"><use href="#i-info"/></svg>Recuerda llevar DNI/Pasaporte y tener a mano el PDF oficial enviado por REMPE</p>
+                  </div>
+                  <div class="app-foot"><button class="a-btn a-pink" type="button" data-act="to-pharmacy">Ver indicaciones</button></div>
+                </div>
+
+                <!-- 4 · Farmacia -->
+                <div class="scr scr-app scr-pharm" data-screen="pharmacy" data-sb="light">
+                  <div class="app-bg"></div>
+                  <div class="app-head"><span class="ah-back"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></span><p>Tu farmacia</p></div>
+                  <div class="map map-big">
+                    <img src="assets/figma/map.png" alt="" width="321" height="321">
+                    <button class="mpin blue is-sel" type="button" style="left:47%;top:46%" data-ph="0" aria-label="Farmacia 1"><svg aria-hidden="true"><use href="#i-capsule"/></svg></button>
+                    <button class="mpin blue" type="button" style="left:18%;top:20%" data-ph="1" aria-label="Farmacia 2"><svg aria-hidden="true"><use href="#i-capsule"/></svg></button>
+                    <button class="mpin blue" type="button" style="left:80%;top:28%" data-ph="2" aria-label="Farmacia 3"><svg aria-hidden="true"><use href="#i-capsule"/></svg></button>
+                    <button class="mpin blue" type="button" style="left:70%;top:78%" data-ph="3" aria-label="Farmacia 4"><svg aria-hidden="true"><use href="#i-capsule"/></svg></button>
+                    <span class="me"></span>
+                  </div>
+                  <div class="ph-sheet">
+                    <div class="ph-info"><span class="ph-i"><svg aria-hidden="true"><use href="#i-pharmacy"/></svg></span><span><b data-ph-name>Farmacia más cercana</b><small data-ph-meta>A 350 m · Abierta ahora</small></span><span class="ph-demo">Ejemplo</span></div>
+                    <div class="ph-qr">
+                      <svg class="qr" data-qr="demo" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg>
+                      <span><b>Presenta el código QR</b><small>en tu farmacia. Tu receta, contigo.</small><em>RES-DEMO-001</em><span class="demo-tag">Demostración · sin validez médica</span></span>
+                    </div>
+                  </div>
+                  <div class="app-foot"><button class="a-btn a-pink" type="button" data-act="to-done">Ya tengo mi pack</button></div>
+                </div>
+
+                <!-- 5 · Disfruta -->
+                <div class="scr scr-done" data-screen="done" data-sb="dark">
+                  <div class="done-sky"></div>
+                  <div class="done-sun"></div>
+                  <div class="done-top">
+                    <span class="done-check"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
+                    <b>Resaca fuera</b>
+                    <small>Pauta completada · 4/4 tomas</small>
+                  </div>
+                  <ul class="done-list">
+                    <li><i><svg aria-hidden="true"><use href="#i-check"/></svg></i>Antiemético<span>20:30</span></li>
+                    <li><i><svg aria-hidden="true"><use href="#i-check"/></svg></i>Protector gástrico<span>21:00</span></li>
+                    <li><i><svg aria-hidden="true"><use href="#i-check"/></svg></i>Analgésico<span>22:00</span></li>
+                    <li><i><svg aria-hidden="true"><use href="#i-check"/></svg></i>Suero de hidratación oral<span>23:00</span></li>
+                  </ul>
+                  <p class="done-msg">Disfruta de tu día.</p>
+                  <div class="app-foot"><button class="a-btn a-pink" type="button" data-act="restart"><svg aria-hidden="true"><use href="#i-refresh"/></svg>Ver de nuevo</button></div>
+                </div>
+
+                <div class="push" data-push aria-hidden="true">
+                  <span class="appicon"><svg viewBox="5 6 47 55"><use href="#logo-r"/></svg></span>
+                  <span class="push-txt"><span class="push-h"><b>RESACAPP</b><span>ahora</span></span><b>Tu receta electrónica</b><span>Ya está disponible. Recibida en tu correo.</span></span>
+                </div>
+                <span class="finger" aria-hidden="true"></span>
+                <div class="home-ind" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+          <div class="how-ctrl">
+            <button class="round-btn" type="button" data-how-prev aria-label="Paso anterior"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+            <div class="how-dots" role="tablist" aria-label="Pasos"></div>
+            <button class="round-btn" type="button" data-how-next aria-label="Paso siguiente"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+          <div class="how-caption" aria-live="polite"></div>
+          <p class="demo-note">Demostración interactiva · datos de ejemplo, sin validez médica</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-cta"><a class="btn btn-pink btn-lg" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<!-- ============ REVISIÓN MÉDICA ============ -->
+<section class="medic" id="medico" aria-labelledby="medic-title">
+  <div class="wrap medic-grid">
+    <div class="medic-art reveal" aria-hidden="true">
+      <div class="ma-ring">
+        <svg class="ma-svg" viewBox="0 0 200 200"><circle class="ma-track" cx="100" cy="100" r="90"/><circle class="ma-prog" cx="100" cy="100" r="90" pathLength="100" transform="rotate(-90 100 100)"/><circle class="ma-ticks" cx="100" cy="100" r="90" pathLength="160" transform="rotate(-90.2 100 100)"/></svg>
+        <span class="ma-core"><svg><use href="#i-steth"/></svg></span>
+      </div>
+      <p class="ma-chip ma-c1"><i><svg><use href="#i-check"/></svg></i>Cuestionario revisado</p>
+      <p class="ma-chip ma-c2"><i><svg><use href="#i-file-pdf"/></svg></i>Receta aprobada</p>
+      <p class="ma-chip ma-c3"><i><svg><use href="#i-shield"/></svg></i>Médico colegiado en España</p>
+    </div>
+    <div class="medic-copy">
+      <h2 id="medic-title" class="reveal">Detrás de cada receta, un médico</h2>
+      <p class="m-lead reveal">Cada solicitud la revisa y aprueba un médico colegiado en España, que valora tu cuestionario y decide si la receta es adecuada para ti.</p>
+      <p class="reveal">Si no lo es, te lo diremos y te indicaremos adónde acudir.</p>
+      <div class="cred reveal">
+        <span class="cred-i"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
+        <span><b>Médicos colegiados en España</b>Receta electrónica oficial.</span>
+      </div>
+      <a class="btn btn-pink btn-lg reveal" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFICIOS ============ -->
+<section class="benefits" id="beneficios" aria-labelledby="benefits-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="benefits-title" class="reveal">¿Por qué deberías usar ResacApp?</h2>
+    </div>
+
+    <div class="bento">
+      <article class="tile t-time reveal" data-time>
+        <div class="tile-copy">
+          <h3>Ahorra las 3 o 4 horas de urgencias</h3>
+          <p>Si vas con una resaca horrible, en urgencias te recetarán lo que con ResacApp puedes conseguir en 20 minutos.</p>
+        </div>
+        <div class="tw">
+          <label class="tw-q" for="wake">Me levanto con resaca a las <output data-wake-out>09:30</output></label>
+          <input id="wake" class="range" type="range" min="420" max="840" step="15" value="570" data-wake>
+          <div class="tw-axis" aria-hidden="true"><span>07:00</span><span>10:00</span><span>14:00</span><span>18:00</span><span>22:00</span></div>
+          <div class="tw-track">
+            <p class="tw-l"><svg aria-hidden="true"><use href="#i-hospital"/></svg>Urgencias</p>
+            <div class="tw-bar"><span class="tw-seg seg-er" data-seg-er><em>3–4 h</em></span></div>
+            <p class="tw-r" data-er-out>De vuelta entre 12:30 y 13:30</p>
+          </div>
+          <div class="tw-track">
+            <p class="tw-l"><svg viewBox="5 6 47 55" aria-hidden="true"><use href="#logo-r"/></svg>ResacApp</p>
+            <div class="tw-bar"><span class="tw-seg seg-app" data-seg-app></span><span class="tw-free" data-seg-free><em>Tu día</em></span></div>
+            <p class="tw-r" data-app-out>Receta en tu correo antes de las 09:50</p>
+          </div>
+          <p class="tw-sum"><strong data-saved>Hasta 3 h 40 min</strong> de día recuperadas</p>
+          <p class="tw-note">Estimación orientativa: 3–4 h en urgencias frente a menos de 20 min con ResacApp.</p>
+        </div>
+      </article>
+
+      <article class="tile t-speed reveal" data-speed>
+        <div class="sw" aria-hidden="true">
+          <svg viewBox="0 0 200 200"><circle class="sw-track" cx="100" cy="100" r="86"/><circle class="sw-fill" cx="100" cy="100" r="86" pathLength="100" transform="rotate(-90 100 100)"/></svg>
+          <div class="sw-c"><span class="sw-n" data-sw>00:00</span><span class="sw-l">min</span></div>
+          <span class="sw-mail"><svg><use href="#i-mail-send"/></svg></span>
+        </div>
+        <div class="tile-copy">
+          <h3>Rapidez</h3>
+          <p>Tu receta en tu correo en menos de 20 minutos.</p>
+        </div>
+      </article>
+
+      <article class="tile t-doc reveal" data-docok>
+        <div class="stamp" aria-hidden="true">
+          <span class="md-av" aria-hidden="true"><svg><use href="#i-steth"/></svg></span>
+          <div class="st-txt"><b><span class="t-wait">En revisión médica</span><span class="t-ok">Solicitud aprobada</span></b><span>Médico colegiado</span></div>
+          <span class="oc-state"><i class="spin"></i><svg><use href="#i-check"/></svg></span>
+        </div>
+        <div class="tile-copy">
+          <h3>Aprobación médica real</h3>
+          <p>Un médico aprobará tu solicitud.</p>
+        </div>
+      </article>
+
+      <article class="tile t-steps reveal">
+        <div class="tile-copy">
+          <h3>Instrucciones en tu móvil</h3>
+          <p>El paso a paso de cada medicamento en ResacApp. Cuándo tomarte cada medicamento y cómo hacerlo para tener la recuperación más rápida y sana.</p>
+          <a class="text-link" href="#instrucciones">Ver la pauta en acción <svg aria-hidden="true"><use href="#i-arrow-down"/></svg></a>
+        </div>
+        <ol class="mini-pauta" aria-hidden="true">
+          <li class="is-done"><i></i><b>20:30</b>Antiemético</li>
+          <li class="is-now"><i></i><b>21:00</b>Protector gástrico</li>
+          <li><i></i><b>22:00</b>Analgésico</li>
+          <li><i></i><b>23:00</b>Suero oral</li>
+        </ol>
+      </article>
+    </div>
+
+    <div class="sec-cta"><a class="btn btn-pink btn-lg" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<!-- ============ INSTRUCCIONES ============ -->
+<section class="pauta" id="instrucciones" aria-labelledby="pauta-title">
+  <div class="wrap pauta-grid">
+    <div class="pauta-copy">
+      <h2 id="pauta-title" class="reveal">Qué tomar. Cuándo tomarlo.</h2>
+      <p class="reveal">El paso a paso de cada medicamento en ResacApp para saber qué medicamento te tienes que tomar en cada momento.</p>
+      <ul class="pp">
+        <li class="reveal"><button type="button" data-hl="med"><b>Qué medicamento</b><span>Consulta el medicamento indicado en tu receta.</span></button></li>
+        <li class="reveal"><button type="button" data-hl="time"><b>En qué momento</b><span>Sigue el orden y los momentos indicados en tu pauta.</span></button></li>
+        <li class="reveal"><button type="button" data-hl="steps"><b>Paso a paso</b><span>Revisa las instrucciones de cada medicamento en tu móvil.</span></button></li>
+      </ul>
+      <p class="try reveal"><svg aria-hidden="true"><use href="#i-check"/></svg>Pruébalo: marca la toma como hecha y mira cómo avanza tu pauta.</p>
+      <a class="btn btn-pink btn-lg reveal" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+
+    <div class="pauta-stage">
+      <div class="phone-slot pauta-phone">
+        <div class="phone" data-sb="light">
+          <div class="phone-screen">
+            <div class="sb" aria-hidden="true"><span class="sb-time">9:41</span><span class="sb-island"></span><svg class="sb-icons" viewBox="0 0 78.4 13"><use href="#i-sbar"/></svg></div>
+            <div class="scr scr-app scr-indic is-active" data-screen="indic" data-sb="light" data-indic>
+              <div class="app-bg"></div>
+              <div class="app-head"><span class="ah-back"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></span><p>Indicaciones</p></div>
+              <div class="in-scroll">
+                <div class="next glass2">
+                  <div class="next-h"><span>Próxima dosis</span><button class="bell is-on" type="button" data-bell aria-pressed="true" aria-label="Recordatorio de la próxima dosis"><svg aria-hidden="true"><use href="#i-bell"/></svg><i></i></button></div>
+                  <div class="next-timer hl-time"><p data-next-timer>00:45<span>:12</span></p><small>Tiempo restante</small></div>
+                  <div class="next-med"><span><b class="hl-med" data-next-name>Protector gástrico</b><small data-next-meta>1 cápsula · 21:00</small></span><span class="nm-i"><svg aria-hidden="true"><use href="#i-capsule"/></svg></span></div>
+                </div>
+                <div class="prog">
+                  <p><b>Progreso del tratamiento</b><span data-prog-n>1/4</span></p>
+                  <div class="prog-bar"><i data-prog-bar></i></div>
+                  <small>Duración: 24 horas</small>
+                </div>
+                <div class="seg" role="tablist" aria-label="Tomas">
+                  <button type="button" role="tab" class="is-on" aria-selected="true" data-tab="pend">Pendientes</button>
+                  <button type="button" role="tab" aria-selected="false" data-tab="done">Completadas</button>
+                </div>
+                <div class="doses" data-doses></div>
+                <div class="hyd glass2"><span class="hy-i"><svg aria-hidden="true"><use href="#i-water"/></svg></span><span><b>Hidratación</b><small>Bebe 2L de agua</small></span></div>
+                <div class="warn glass2"><p><svg aria-hidden="true"><use href="#i-warning"/></svg>Advertencias importantes</p><ul><li>No exceder dosis recomendadas</li><li>Respetar horarios indicados</li><li>No combinar con alcohol</li></ul></div>
+                <p class="in-demo">Ejemplo de pauta. La tuya la indica tu médico en la receta.</p>
+              </div>
+              <div class="tabbar" aria-hidden="true"><span class="tab"><svg><use href="#i-home"/></svg></span><span class="tab is-on"><svg><use href="#i-doc-plus"/></svg><i></i></span><span class="tab"><svg><use href="#i-user-plus"/></svg></span></div>
+            </div>
+            <div class="toast" data-toast aria-live="polite"></div>
+            <div class="home-ind" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCIAS ============ -->
+<section class="stories" id="experiencias" aria-labelledby="stories-title">
+  <div class="dawn" aria-hidden="true">
+    <svg class="dp dp1"><use href="#pill-capsule"/></svg>
+    <svg class="dp dp2"><use href="#pill-tablet"/></svg>
+    <svg class="dp dp3"><use href="#pill-capsule"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="sec-head stories-head">
+      <h2 id="stories-title" class="reveal">Qué opina la gente que ya lo ha probado</h2>
+      <p class="reveal">Hay días que no quieres perderte.</p>
+    </div>
+  </div>
+  <div class="carousel" data-carousel>
+    <div class="track" tabindex="0" role="region" aria-label="Opiniones de usuarios" data-track>
+      <article class="review" lang="es"><p class="rv-lang">Español</p><h3>Receta rápida</h3><blockquote><p>Estaba fatal en el hotel y no quería perder media noche en urgencias. Rellené el cuestionario, pagué y en un rato ya tenía la receta en el correo. Volví a la fiesta al día siguiente como si nada.</p></blockquote></article>
+      <article class="review" lang="es"><p class="rv-lang">Español</p><h3>Ahorro total</h3><blockquote><p>Pregunté en recepción cuánto costaba una consulta privada aquí y me dijeron que más de 150€. Con la app resolví todo por mucho menos y sin salir de la habitación.</p></blockquote></article>
+      <article class="review" lang="de" data-tr-title="Sin colas" data-tr="Lo mejor fue no tener que ir a urgencias y esperar allí con toda la demás gente. En quince minutos ya sabía qué medicamento tenía que tomar."><p class="rv-lang">Alemán</p><h3>Keine Warteschlangen</h3><blockquote><p>Das Beste war, dass ich nicht in die Notaufnahme musste und dort mit all den anderen Leuten warten. In fünfzehn Minuten wusste ich schon, welches Medikament ich nehmen sollte.</p></blockquote><button class="rv-tr" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#i-translate"/></svg><span>Traducir al español</span></button></article>
+      <article class="review" lang="es"><p class="rv-lang">Español</p><h3>Vacaciones salvadas</h3><blockquote><p>Nos quedaban dos días de viaje y no pensaba desperdiciarlos en un hospital. Con esta app me sentí mejor al mediodía y pudimos seguir disfrutando la isla.</p></blockquote></article>
+      <article class="review" lang="en" data-tr-title="Fácil desde el móvil" data-tr="No tenía ni idea de dónde encontrar un médico por la zona. Con la app solo me llevó unos minutos: unas preguntas, el pago y listo, la receta en mi correo."><p class="rv-lang">Inglés</p><h3>Easy from my phone</h3><blockquote><p>I had no idea where to find a doctor in the area. With the app it only took a few minutes: some questions, the payment, and done, prescription in my email.</p></blockquote><button class="rv-tr" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#i-translate"/></svg><span>Traducir al español</span></button></article>
+      <article class="review" lang="en" data-tr-title="Tranquilidad" data-tr="No me apetecía nada buscar una consulta médica estando de vacaciones. Aquí todo fue sencillo y rápido; solo echo de menos más opciones de farmacias cercanas."><p class="rv-lang">Inglés</p><h3>Peace of mind</h3><blockquote><p>I really didn't feel like looking for a doctor's office while on vacation. Everything here was simple and fast, I just wish there were more nearby pharmacy options.</p></blockquote><button class="rv-tr" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#i-translate"/></svg><span>Traducir al español</span></button></article>
+      <article class="review" lang="es"><p class="rv-lang">Español</p><h3>Funcionó, pero con dudas</h3><blockquote><p>La receta llegó rápido, eso sí lo cumplieron. Me hubiera gustado tener más explicación vía telefónica pero luego me fijé que la app tenía toda la información necesaria.</p></blockquote></article>
+      <article class="review" lang="es"><p class="rv-lang">Español</p><h3>Cumplió el objetivo</h3><blockquote><p>Evité la sala de urgencias, que ya es un montón. El proceso de pago tardó un poco más de lo que esperaba, pero al final resolví sin moverme del apartamento.</p></blockquote></article>
+      <article class="review" lang="it" data-tr-title="Bien para cosas sencillas" data-tr="Para no pasar toda la noche en el hospital fue fantástico. El chat con el médico tardó un poco en responder, pero conseguí la receta y al día siguiente ya estaba mejor."><p class="rv-lang">Italiano</p><h3>Va bene per le cose semplici</h3><blockquote><p>Per non passare tutta la notte in ospedale è stato fantastico. La chat con il medico è stata un po' lenta a rispondere, ma ho ottenuto la ricetta e il giorno dopo stavo già meglio.</p></blockquote><button class="rv-tr" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#i-translate"/></svg><span>Traducir al español</span></button></article>
+    </div>
+    <div class="wrap car-ctrl">
+      <button class="round-btn" type="button" data-car-prev aria-label="Opinión anterior"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+      <p class="car-pos" aria-live="polite"><span data-car-pos>01</span> / 09</p>
+      <button class="round-btn" type="button" data-car-next aria-label="Opinión siguiente"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <a class="btn btn-pink btn-md car-cta" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ¿ES PARA TI? ============ -->
+<section class="fit" id="para-ti" aria-labelledby="fit-title">
+  <div class="wrap fit-grid">
+    <div class="fit-copy">
+      <h2 id="fit-title" class="reveal">¿ResacApp es para ti?</h2>
+      <p class="reveal">Cuatro preguntas para saberlo antes de empezar. Es orientativo: dentro de la app, el cuestionario de seguridad y el médico deciden en tu caso.</p>
+    </div>
+    <div class="fit-card reveal" data-fit>
+      <div class="fit-top"><span class="fit-ico"><svg aria-hidden="true"><use href="#i-question"/></svg></span><span><b>Comprobación rápida</b><small data-fit-count>Pregunta 1 de 4</small></span></div>
+      <div class="fit-prog"><i data-fit-bar></i></div>
+      <div class="fit-stage" data-fit-stage>
+        <div class="fit-q is-on" data-fq="0" data-bad="no"><p>¿Tienes 18 años o más?</p><div class="fit-opts"><button type="button" data-v="yes">Sí</button><button type="button" data-v="no">No</button></div></div>
+        <div class="fit-q" data-fq="1" data-bad="no"><p>¿Tus síntomas están relacionados con el consumo de alcohol?</p><div class="fit-opts"><button type="button" data-v="yes">Sí</button><button type="button" data-v="no">No</button></div></div>
+        <div class="fit-q" data-fq="2" data-bad="yes"><p>¿Estás embarazada o en periodo de lactancia?</p><div class="fit-opts"><button type="button" data-v="yes">Sí</button><button type="button" data-v="no">No</button></div></div>
+        <div class="fit-q" data-fq="3" data-bad="yes"><p>¿Has hecho otra solicitud en las últimas 72 horas?</p><div class="fit-opts"><button type="button" data-v="yes">Sí</button><button type="button" data-v="no">No</button></div></div>
+        <div class="fit-res fit-ok" data-fit-ok>
+          <span class="fr-i"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
+          <p class="fr-t">Puedes solicitarla</p>
+          <p>En la app responderás el cuestionario de seguridad completo y un médico revisará tu solicitud. Si no lo superas, no se genera ningún cobro.</p>
+          <div class="fr-actions"><a class="btn btn-pink btn-md" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a><button class="text-btn" type="button" data-fit-reset>Volver a empezar</button></div>
+        </div>
+        <div class="fit-res fit-no" data-fit-no>
+          <span class="fr-i"><svg aria-hidden="true"><use href="#i-info"/></svg></span>
+          <p class="fr-t">Hoy ResacApp no es para ti</p>
+          <p data-fit-reason></p>
+          <p class="fr-112">Si tienes síntomas que te preocupan, acude a un centro sanitario. En caso de urgencia, llama al 112.</p>
+          <div class="fr-actions"><button class="text-btn" type="button" data-fit-reset>Volver a empezar</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="preguntas" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <div class="faq-side">
+      <h2 id="faq-title" class="reveal">FAQs <span>(preguntas frecuentes)</span></h2>
+      <p class="reveal">¿Te queda alguna duda? <a href="#contacto">Escríbenos</a> y te respondemos.</p>
+    </div>
+    <div class="faq-list">
+      <details name="faq" open><summary>¿De verdad me voy a sentir mejor?<i aria-hidden="true"></i></summary><div class="ans"><p>El médico pauta el tratamiento indicado para tus síntomas de una manera clara, rápida y sencilla.</p></div></details>
+      <details name="faq"><summary>¿No se pasa sola?<i aria-hidden="true"></i></summary><div class="ans"><p>Sí, con el tiempo. ResacApp es para cuando no quieres esperar a que se pase.</p></div></details>
+      <details name="faq"><summary>¿Por qué no voy a mi médico?<i aria-hidden="true"></i></summary><div class="ans"><p>Puedes hacerlo. ResacApp solo te ahorra la cita, el traslado y las horas en sala de espera.</p></div></details>
+      <details name="faq"><summary>¿Qué incluye el precio?<i aria-hidden="true"></i></summary><div class="ans"><p>La revisión médica, la receta para la compra de los medicamentos y la pauta guiada para saber qué y cuándo tomarlo.</p></div></details>
+      <details name="faq"><summary>¿Y si es algo más serio?<i aria-hidden="true"></i></summary><div class="ans"><p>Si la app detecta señales de alarma, te indicará que acudas al centro sanitario más cercano para que un médico te atienda en persona.</p></div></details>
+      <details name="faq"><summary>¿Cuánto tarda en llegar la receta?<i aria-hidden="true"></i></summary><div class="ans"><p>Una vez aprobada tu solicitud, recibirás la receta electrónica en tu correo en menos de 20 minutos.</p></div></details>
+      <details name="faq"><summary>¿Puedo cancelar después de pagar?<i aria-hidden="true"></i></summary><div class="ans"><p>No. Al pagar, el servicio se inicia de inmediato y no se admite cancelación ni reembolso, salvo en los casos previstos en las condiciones del servicio. Por eso es importante leerlas antes de aceptar.</p></div></details>
+      <details name="faq"><summary>¿Cada cuánto puedo solicitarlo?<i aria-hidden="true"></i></summary><div class="ans"><p>Deben pasar al menos 72 horas entre una solicitud y la siguiente. El servicio y la receta son personales e intransferibles.</p></div></details>
+      <details name="faq"><summary>¿Quién puede usar ResacApp?<i aria-hidden="true"></i></summary><div class="ans"><p>Personas adultas con síntomas relacionados con el consumo de alcohol que superen el cuestionario de seguridad. No está indicado durante el embarazo o la lactancia, ni con determinadas enfermedades o tratamientos.</p></div></details>
+      <details name="faq"><summary>¿Qué pasa si no supero el cuestionario?<i aria-hidden="true"></i></summary><div class="ans"><p>La solicitud no continúa y no se genera ningún cobro. Si tienes síntomas que te preocupan, acude a un centro sanitario.</p></div></details>
+      <details name="faq"><summary>¿Tengo que descargar algo?<i aria-hidden="true"></i></summary><div class="ans"><p>No. ResacApp funciona desde el navegador del móvil o del ordenador: entra en <a href="https://app.resacapp.com/">app.resacapp.com</a> y empieza.</p></div></details>
+      <details name="faq"><summary>¿Dónde consigo la medicación?<i aria-hidden="true"></i></summary><div class="ans"><p>En tu farmacia más cercana, mostrando el código QR de la receta. La medicación se paga aparte.</p></div></details>
+      <details name="faq"><summary>¿Están protegidos mis datos?<i aria-hidden="true"></i></summary><div class="ans"><p>Sí. Tu información de salud está amparada por el secreto profesional y se trata conforme a la normativa de protección de datos.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIERRE + CONTACTO ============ -->
+<section class="close" id="contacto" aria-labelledby="close-title">
+  <div class="close-bg" aria-hidden="true"></div>
+  <div class="wrap close-cta">
+    <h2 id="close-title" class="reveal">Tu receta, en menos de 20 minutos.</h2>
+    <p class="reveal">Sin urgencias, sin sala de espera. Toca el botón y empieza.</p>
+    <a class="rx rx-big reveal" href="https://app.resacapp.com/" data-download aria-label="Solicitar receta: abrir ResacApp">
+      <svg class="rx-svg" viewBox="-14 -14 280 280" aria-hidden="true">
+        <circle cx="126" cy="126" r="122" fill="none" stroke="#171717" stroke-opacity=".24" stroke-width="29"/>
+        <circle cx="126" cy="126" r="136" fill="none" stroke="#fff" stroke-opacity=".16"/>
+        <image class="rx-glow" href="assets/figma/progress-blur.png" x="1.5" y="1.5" width="249" height="249"/>
+        <circle class="rx-track" cx="126" cy="126" r="117" fill="none" stroke-width="12"/>
+        <circle class="rx-prog" cx="126" cy="126" r="117" fill="none" stroke="#27B0FF" stroke-width="12" filter="url(#f-ring)" pathLength="100" transform="rotate(-90 126 126)"/>
+        <circle class="rx-ticks" cx="126" cy="126" r="117" fill="none" stroke="#1B5E8E" stroke-opacity=".32" stroke-width="12" pathLength="160" stroke-dasharray=".45 9.55" transform="rotate(-90.2 126 126)"/>
+        <g class="rx-face">
+          <circle cx="126" cy="126" r="111.18" fill="url(#g-btn)" filter="url(#f-btn)"/>
+          <circle cx="126" cy="126" r="108.68" fill="none" stroke="#000" stroke-opacity=".08" stroke-width="5"/>
+          <g transform="translate(111.2 43) scale(1.2353)" filter="url(#f-capsule)"><use href="#i-capsule" width="24" height="24" color="#28064A"/></g>
+          <g class="rx-words" font-weight="900" font-size="32" text-anchor="middle" letter-spacing="-.16">
+            <text x="126" y="128" fill="#28064A" filter="url(#f-emboss)">SOLICITAR</text>
+            <text x="126" y="128" fill="url(#g-rxtext)">SOLICITAR</text>
+            <text x="126" y="160" fill="#28064A" filter="url(#f-emboss)">RECETA</text>
+            <text x="126" y="160" fill="url(#g-rxtext)">RECETA</text>
+          </g>
+          <use href="#i-time" x="119" y="190" width="14" height="14" color="#A4A4A4"/>
+          <path id="arc-rx2" d="M 41.1 175 A 98 98 0 0 0 210.9 175" fill="none"/>
+          <text class="rx-sub"><textPath href="#arc-rx2" startOffset="50%" text-anchor="middle">Solicitud en 5 min</textPath></text>
+        </g>
+      </svg>
+    </a>
+  </div>
+
+  <div class="wrap contact">
+    <div class="contact-copy">
+      <h2 class="h-contact reveal">Contacta</h2>
+      <p class="reveal">Cuéntanos para qué querrías usar ResacApp.</p>
+      <ul class="contact-alt reveal">
+        <li><a href="https://app.resacapp.com/login" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-globe"/></svg>Usar ResacApp desde el navegador</a></li>
+        <li><a href="#preguntas"><svg aria-hidden="true"><use href="#i-question"/></svg>Leer las preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <form class="contact-form reveal" data-contact data-endpoint="" data-mail="soporte@resacapp.com" action="mailto:soporte@resacapp.com" method="post" enctype="text/plain" novalidate>
+      <div class="field"><label for="c-nombre">Nombre</label><input id="c-nombre" name="nombre" type="text" autocomplete="name" maxlength="100" required></div>
+      <div class="field"><label for="c-correo">Correo</label><input id="c-correo" name="correo" type="email" autocomplete="email" inputmode="email" maxlength="200" required></div>
+      <div class="field"><label for="c-tel">Teléfono <small>(opcional)</small></label><input id="c-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="30"></div>
+      <div class="field field-wide"><label for="c-uso">¿Para qué querrías usar ResacApp?</label><textarea id="c-uso" name="uso" rows="4" maxlength="3000" required></textarea></div>
+      <div class="hp" aria-hidden="true"><label for="c-web">Deja este campo vacío</label><input id="c-web" name="web" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="form-foot">
+        <button class="btn btn-pink btn-lg" type="submit">Enviar <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <p class="form-status" role="status" data-form-status></p>
+      </div>
+      <p class="form-legal">Responsable: ResacApp. Usaremos tus datos solo para responder a tu mensaje y no los cederemos a terceros. Puedes consultarlos, corregirlos o pedir que los borremos escribiendo a <a href="mailto:soporte@resacapp.com">soporte@resacapp.com</a>.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <svg class="logo logo-on-dark" viewBox="5 5 269 72" role="img" aria-label="ResacApp"><use href="#logo-word"/></svg>
+      <p>La APP para curar la Resaca.</p>
+      <p class="foot-badge"><svg aria-hidden="true"><use href="#i-shield"/></svg>Aprobación médica real</p>
+    </div>
+    <nav class="foot-nav" aria-label="Pie de página">
+      <p>ResacApp</p>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#medico">Revisión médica</a>
+      <a href="#beneficios">Beneficios</a>
+      <a href="#preguntas">FAQs</a>
+    </nav>
+    <nav class="foot-nav" aria-label="Legal">
+      <p>Legal</p>
+      <a href="#" data-legal>Aviso legal</a>
+      <a href="#" data-legal>Política de privacidad</a>
+      <a href="#" data-legal>Política de cookies</a>
+      <a href="#" data-legal>Condiciones del servicio</a>
+    </nav>
+    <div class="foot-app">
+      <p>Tu cuenta</p>
+      <a class="btn btn-ghost btn-md" href="https://app.resacapp.com/login" target="_blank" rel="noopener noreferrer">Login</a>
+      <a class="btn btn-pink btn-md" href="https://app.resacapp.com/" data-download>Usa la APP ahora</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <p>© <span data-year>2026</span> ResacApp</p>
+  </div>
+</footer>
+
+<div class="mcta" data-mcta>
+  <a class="btn btn-pink btn-lg" href="https://app.resacapp.com/" data-download>Usa la APP ahora <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+</div>
+
+<!--QR:BEGIN--><script type="application/json" id="qr-data">{"app":{"n":29,"d":"M0 0h7v1h-7zM9 0h2v1h-2zM12 0h2v1h-2zM15 0h1v1h-1zM18 0h1v1h-1zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM11 1h1v1h-1zM13 1h1v1h-1zM15 1h2v1h-2zM18 1h2v1h-2zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h3v1h-3zM13 2h1v1h-1zM16 2h2v1h-2zM19 2h2v1h-2zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM16 3h1v1h-1zM19 3h2v1h-2zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h3v1h-3zM12 4h5v1h-5zM18 4h1v1h-1zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM11 5h1v1h-1zM13 5h2v1h-2zM17 5h1v1h-1zM19 5h2v1h-2zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM12 7h1v1h-1zM16 7h3v1h-3zM1 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM8 8h4v1h-4zM13 8h1v1h-1zM16 8h2v1h-2zM19 8h3v1h-3zM23 8h2v1h-2zM26 8h1v1h-1zM0 9h4v1h-4zM5 9h1v1h-1zM7 9h4v1h-4zM12 9h1v1h-1zM17 9h2v1h-2zM22 9h7v1h-7zM3 10h2v1h-2zM6 10h1v1h-1zM9 10h2v1h-2zM13 10h2v1h-2zM16 10h1v1h-1zM18 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h1v1h-1zM0 11h2v1h-2zM3 11h1v1h-1zM5 11h1v1h-1zM12 11h1v1h-1zM15 11h1v1h-1zM17 11h1v1h-1zM20 11h2v1h-2zM23 11h1v1h-1zM25 11h1v1h-1zM27 11h2v1h-2zM0 12h2v1h-2zM3 12h4v1h-4zM10 12h2v1h-2zM14 12h2v1h-2zM17 12h1v1h-1zM23 12h1v1h-1zM28 12h1v1h-1zM0 13h1v1h-1zM2 13h2v1h-2zM5 13h1v1h-1zM7 13h2v1h-2zM11 13h1v1h-1zM15 13h1v1h-1zM17 13h1v1h-1zM22 13h1v1h-1zM24 13h1v1h-1zM26 13h1v1h-1zM28 13h1v1h-1zM1 14h2v1h-2zM5 14h2v1h-2zM15 14h1v1h-1zM17 14h1v1h-1zM20 14h1v1h-1zM24 14h1v1h-1zM28 14h1v1h-1zM0 15h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM9 15h1v1h-1zM11 15h3v1h-3zM17 15h2v1h-2zM23 15h1v1h-1zM25 15h1v1h-1zM1 16h4v1h-4zM6 16h1v1h-1zM8 16h2v1h-2zM11 16h4v1h-4zM17 16h1v1h-1zM19 16h3v1h-3zM0 17h2v1h-2zM5 17h1v1h-1zM7 17h1v1h-1zM9 17h2v1h-2zM14 17h1v1h-1zM16 17h1v1h-1zM18 17h1v1h-1zM22 17h5v1h-5zM28 17h1v1h-1zM4 18h1v1h-1zM6 18h2v1h-2zM10 18h1v1h-1zM12 18h1v1h-1zM16 18h1v1h-1zM20 18h1v1h-1zM23 18h2v1h-2zM28 18h1v1h-1zM3 19h2v1h-2zM7 19h1v1h-1zM11 19h1v1h-1zM13 19h2v1h-2zM17 19h1v1h-1zM19 19h2v1h-2zM24 19h2v1h-2zM27 19h1v1h-1zM0 20h4v1h-4zM6 20h1v1h-1zM8 20h2v1h-2zM13 20h1v1h-1zM15 20h1v1h-1zM17 20h1v1h-1zM20 20h5v1h-5zM27 20h2v1h-2zM8 21h2v1h-2zM13 21h1v1h-1zM15 21h6v1h-6zM24 21h1v1h-1zM26 21h1v1h-1zM28 21h1v1h-1zM0 22h7v1h-7zM10 22h1v1h-1zM12 22h1v1h-1zM15 22h1v1h-1zM18 22h3v1h-3zM22 22h1v1h-1zM24 22h1v1h-1zM28 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h3v1h-3zM13 23h2v1h-2zM16 23h2v1h-2zM19 23h2v1h-2zM24 23h2v1h-2zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h3v1h-3zM12 24h1v1h-1zM14 24h1v1h-1zM18 24h7v1h-7zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM10 25h1v1h-1zM13 25h1v1h-1zM18 25h1v1h-1zM23 25h1v1h-1zM25 25h3v1h-3zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM9 26h2v1h-2zM15 26h7v1h-7zM27 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h5v1h-5zM14 27h5v1h-5zM20 27h1v1h-1zM23 27h1v1h-1zM27 27h2v1h-2zM0 28h7v1h-7zM11 28h1v1h-1zM14 28h1v1h-1zM16 28h2v1h-2zM19 28h3v1h-3zM24 28h2v1h-2zM27 28h1v1h-1z"},"demo":{"n":25,"d":"M0 0h7v1h-7zM9 0h1v1h-1zM11 0h2v1h-2zM14 0h3v1h-3zM18 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h3v1h-3zM13 1h3v1h-3zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h5v1h-5zM18 2h1v1h-1zM20 2h3v1h-3zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h2v1h-2zM12 3h1v1h-1zM14 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM20 3h3v1h-3zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h2v1h-2zM11 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM18 4h1v1h-1zM20 4h3v1h-3zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h3v1h-3zM12 5h1v1h-1zM15 5h1v1h-1zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h7v1h-7zM8 7h2v1h-2zM12 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM0 8h1v1h-1zM2 8h5v1h-5zM9 8h1v1h-1zM13 8h2v1h-2zM16 8h1v1h-1zM18 8h5v1h-5zM0 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM10 9h2v1h-2zM13 9h1v1h-1zM15 9h3v1h-3zM19 9h1v1h-1zM22 9h1v1h-1zM2 10h5v1h-5zM9 10h3v1h-3zM13 10h4v1h-4zM18 10h2v1h-2zM21 10h1v1h-1zM23 10h1v1h-1zM0 11h4v1h-4zM8 11h1v1h-1zM13 11h2v1h-2zM16 11h2v1h-2zM21 11h4v1h-4zM3 12h1v1h-1zM6 12h2v1h-2zM10 12h1v1h-1zM13 12h1v1h-1zM16 12h1v1h-1zM19 12h1v1h-1zM21 12h1v1h-1zM0 13h1v1h-1zM3 13h1v1h-1zM7 13h3v1h-3zM12 13h1v1h-1zM14 13h3v1h-3zM20 13h5v1h-5zM0 14h1v1h-1zM2 14h2v1h-2zM5 14h3v1h-3zM15 14h3v1h-3zM19 14h1v1h-1zM23 14h1v1h-1zM0 15h1v1h-1zM3 15h1v1h-1zM9 15h1v1h-1zM12 15h1v1h-1zM14 15h1v1h-1zM16 15h1v1h-1zM18 15h1v1h-1zM21 15h2v1h-2zM24 15h1v1h-1zM0 16h1v1h-1zM4 16h5v1h-5zM10 16h1v1h-1zM12 16h2v1h-2zM16 16h8v1h-8zM8 17h1v1h-1zM10 17h1v1h-1zM13 17h1v1h-1zM16 17h1v1h-1zM20 17h2v1h-2zM24 17h1v1h-1zM0 18h7v1h-7zM9 18h1v1h-1zM11 18h2v1h-2zM14 18h3v1h-3zM18 18h1v1h-1zM20 18h1v1h-1zM22 18h3v1h-3zM0 19h1v1h-1zM6 19h1v1h-1zM8 19h2v1h-2zM11 19h1v1h-1zM13 19h2v1h-2zM16 19h1v1h-1zM20 19h1v1h-1zM22 19h3v1h-3zM0 20h1v1h-1zM2 20h3v1h-3zM6 20h1v1h-1zM8 20h2v1h-2zM11 20h3v1h-3zM15 20h6v1h-6zM22 20h1v1h-1zM24 20h1v1h-1zM0 21h1v1h-1zM2 21h3v1h-3zM6 21h1v1h-1zM8 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM15 21h1v1h-1zM17 21h1v1h-1zM19 21h1v1h-1zM23 21h2v1h-2zM0 22h1v1h-1zM2 22h3v1h-3zM6 22h1v1h-1zM8 22h3v1h-3zM12 22h2v1h-2zM15 22h2v1h-2zM18 22h2v1h-2zM21 22h2v1h-2zM24 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h2v1h-2zM12 23h1v1h-1zM15 23h3v1h-3zM19 23h1v1h-1zM0 24h7v1h-7zM8 24h1v1h-1zM12 24h3v1h-3zM16 24h2v1h-2zM21 24h2v1h-2zM24 24h1v1h-1z"}}</script><!--QR:END-->
+<script src="app.js?v=3" defer></script>
+</body>
+</html>
